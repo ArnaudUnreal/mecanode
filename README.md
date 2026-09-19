@@ -72,5 +72,5 @@ fichiers ne se relit pas.
 
 ## Déploiement
 
-Poussée sur `main`, construction et mise en ligne par intégration continue.
-Base et dossier des médias sauvegardés chaque nuit.
+Le site est en ligne sur <https://mecanode.com>, hébergé sur un VPS OVHcloud.
+La procédure, l'exploitation et la restauration sont décrites dans [docs/PRODUCTION.md](docs/PRODUCTION.md).
