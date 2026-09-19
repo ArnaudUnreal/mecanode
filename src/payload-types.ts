@@ -159,7 +159,7 @@ export interface Tool {
    * YouTube or Vimeo. The player loads on click, never on page load.
    */
   videoUrl?: string | null;
-  engineVersions: ('5.0' | '5.1' | '5.2' | '5.3' | '5.4' | '5.5' | '5.6' | '5.7')[];
+  engineVersions: ('4.25' | '4.26' | '4.27' | '5.0' | '5.1' | '5.2' | '5.3' | '5.4' | '5.5' | '5.6' | '5.7')[];
   category: number | Tag;
   tags?: (number | Tag)[] | null;
   /**

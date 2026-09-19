@@ -77,10 +77,45 @@ export function asTag(value: number | Tag | null | undefined): Tag | null {
   return value && typeof value === 'object' ? value : null
 }
 
-/** Bornes de compatibilité affichées sur les cartes : « 5.3 → 5.7 ». */
+/** Ordre officiel des versions d'Unreal proposées sur une fiche outil. */
+const ENGINE_ORDER = [
+  '4.25',
+  '4.26',
+  '4.27',
+  '5.0',
+  '5.1',
+  '5.2',
+  '5.3',
+  '5.4',
+  '5.5',
+  '5.6',
+  '5.7',
+]
+
+/**
+ * Compatibilité affichée sur les cartes : les versions qui se suivent forment une plage,
+ * les trous coupent la liste. « 4.25 → 4.27 · 5.3 → 5.6 ».
+ */
 export function engineRange(versions: string[] | null | undefined): string | null {
   if (!versions || versions.length === 0) return null
-  const sorted = [...versions].sort()
 
-  return sorted.length === 1 ? sorted[0] : `${sorted[0]} → ${sorted[sorted.length - 1]}`
+  const ordered = versions
+    .filter((version) => ENGINE_ORDER.includes(version))
+    .sort((a, b) => ENGINE_ORDER.indexOf(a) - ENGINE_ORDER.indexOf(b))
+
+  if (ordered.length === 0) return null
+
+  const groups: string[][] = [[ordered[0]]]
+  for (let index = 1; index < ordered.length; index += 1) {
+    const previous = groups[groups.length - 1]
+    const isNext =
+      ENGINE_ORDER.indexOf(ordered[index]) === ENGINE_ORDER.indexOf(previous[previous.length - 1]) + 1
+
+    if (isNext) previous.push(ordered[index])
+    else groups.push([ordered[index]])
+  }
+
+  return groups
+    .map((group) => (group.length === 1 ? group[0] : group[0] + ' → ' + group[group.length - 1]))
+    .join(' · ')
 }

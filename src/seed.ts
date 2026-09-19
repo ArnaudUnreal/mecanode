@@ -12,18 +12,26 @@ import { getPayload } from 'payload'
 
 const ASSETS = 'D:/Mecanode/04-Assets/fab'
 
-type EngineVersion = '5.0' | '5.1' | '5.2' | '5.3' | '5.4' | '5.5' | '5.6' | '5.7'
+type EngineVersion =
+  | '4.25'
+  | '4.26'
+  | '4.27'
+  | '5.0'
+  | '5.1'
+  | '5.2'
+  | '5.3'
+  | '5.4'
+  | '5.5'
+  | '5.6'
+  | '5.7'
 
-/**
- * Versions d'Unreal compatibles, à confirmer produit par produit :
- * l'API de Fab ne les expose pas.
- */
+/** Versions d'Unreal compatibles, reprises de `04-Assets/FabListing.md`. */
 const ENGINE_VERSIONS: Record<string, EngineVersion[]> = {
   'chaos-batch-fracture': ['5.6', '5.7'],
-  'dice-system': ['5.0', '5.1', '5.2', '5.3', '5.4', '5.5', '5.6', '5.7'],
-  'histogram-chart': ['5.0', '5.1', '5.2', '5.3', '5.4', '5.5', '5.6', '5.7'],
-  'pie-chart': ['5.0', '5.1', '5.2', '5.3', '5.4', '5.5', '5.6', '5.7'],
-  'curve-chart-blueprint': ['5.0', '5.1', '5.2', '5.3', '5.4', '5.5', '5.6', '5.7'],
+  'dice-system': ['5.2', '5.3', '5.4', '5.5', '5.6'],
+  'histogram-chart': ['4.25', '4.26', '4.27', '5.3', '5.4', '5.5', '5.6'],
+  'pie-chart': ['4.25', '4.26', '4.27', '5.3', '5.4', '5.5', '5.6'],
+  'curve-chart-blueprint': ['4.25', '4.26', '4.27', '5.3', '5.4', '5.5', '5.6'],
 }
 
 const richText = (paragraphs: string[]) => ({
@@ -391,11 +399,11 @@ async function seed() {
       lede: 'Editor plugins and Blueprint systems built over ten years of production and teaching. Drop them in, ship faster, keep your graph readable.',
       footerNote: 'Unreal Engine tools, built in production and tested in classrooms.',
       fabUrl: FAB_STORE,
-      engineRange: '5.0 → 5.7',
+      engineRange: '4.25 → 5.7',
       stats: [
         { value: '10', label: 'years of Blueprint', highlight: false },
         { value: '2', label: 'years of C++', highlight: true },
-        { value: '5.0 → 5.7', label: 'engine versions', highlight: false },
+        { value: '4.25 → 5.7', label: 'engine versions', highlight: false },
         { value: '5', label: 'tools on Fab', highlight: false },
       ],
       elsewhere: [
@@ -425,7 +433,7 @@ async function seed() {
       stats: [
         { value: '10', label: 'ans de Blueprint', highlight: false },
         { value: '2', label: 'ans de C++', highlight: true },
-        { value: '5.0 → 5.7', label: "versions d'Unreal", highlight: false },
+        { value: '4.25 → 5.7', label: "versions d'Unreal", highlight: false },
         { value: '5', label: 'outils sur Fab', highlight: false },
       ],
     },

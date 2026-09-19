@@ -2,7 +2,19 @@ import type { CollectionConfig } from 'payload'
 
 import { slugField } from '@/fields/slug'
 
-const engineVersionOptions = ['5.0', '5.1', '5.2', '5.3', '5.4', '5.5', '5.6', '5.7'].map(
+const engineVersionOptions = [
+  '4.25',
+  '4.26',
+  '4.27',
+  '5.0',
+  '5.1',
+  '5.2',
+  '5.3',
+  '5.4',
+  '5.5',
+  '5.6',
+  '5.7',
+].map(
   (version) => ({ label: version, value: version }),
 )
 
