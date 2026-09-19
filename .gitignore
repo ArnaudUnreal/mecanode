@@ -1,0 +1,32 @@
+# dependances
+node_modules/
+.pnpm-store/
+
+# build
+.next/
+build/
+dist/
+*.tsbuildinfo
+next-env.d.ts
+
+# donnees et medias, sauvegardes hors depot
+data/
+media/
+
+# environnement
+.env
+.env.*
+!.env.example
+
+# IDE
+.idea/
+.vscode/
+
+# systeme
+.DS_Store
+Thumbs.db
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
