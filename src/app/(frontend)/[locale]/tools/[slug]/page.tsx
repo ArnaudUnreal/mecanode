@@ -4,6 +4,7 @@ import { getFormatter, getTranslations, setRequestLocale } from 'next-intl/serve
 import { notFound } from 'next/navigation'
 import React from 'react'
 
+import { JsonLd } from '@/components/seo/JsonLd'
 import { ToolGallery, type GalleryItem } from '@/components/tool/ToolGallery'
 import { VideoFacade } from '@/components/tool/VideoFacade'
 import { ArrowUpRight, ButtonLink } from '@/components/ui/Button'
@@ -12,6 +13,7 @@ import { Link } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'
 import { asMedia, asTag, engineRange, getTool, getToolSlugs, type Locale } from '@/lib/content'
 import { pageMetadata, SITE_URL } from '@/lib/metadata'
+import { getPathname } from '@/i18n/navigation'
 
 type Params = { locale: string; slug: string }
 
@@ -74,8 +76,42 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
   const day = (value: string) =>
     format.dateTime(new Date(value), { day: 'numeric', month: 'short', year: 'numeric' })
 
+  const page = SITE_URL + getPathname({ href: { pathname: '/tools/[slug]', params: { slug } }, locale })
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'SoftwareApplication',
+        name: tool.name,
+        url: page,
+        description: tool.tagline,
+        applicationCategory: 'DeveloperApplication',
+        operatingSystem: 'Unreal Engine ' + (range ?? ''),
+        softwareVersion: latestNote?.version,
+        datePublished: tool.releaseDate ?? undefined,
+        image: cover?.url ? SITE_URL + cover.url : undefined,
+        author: { '@type': 'Person', name: 'Arnaud Szobad' },
+        sameAs: tool.fabUrl,
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: nav('tools'),
+            item: SITE_URL + getPathname({ href: '/', locale }),
+          },
+          { '@type': 'ListItem', position: 2, name: tool.name, item: page },
+        ],
+      },
+    ],
+  }
+
   return (
     <>
+      <JsonLd data={jsonLd} />
       <nav aria-label={t('breadcrumb')} className="mx-auto max-w-node px-5 pt-7 pb-4 sm:px-8">
         <ol className="m-0 flex list-none gap-2.5 p-0 font-mono text-[11px] tracking-[0.08em] uppercase text-ink-3">
           <li>

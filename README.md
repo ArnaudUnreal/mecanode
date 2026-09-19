@@ -60,6 +60,7 @@ fichiers ne se relit pas.
 | `pnpm media:regenerate` | Refabrique les tailles dérivées des médias après un changement de `imageSizes`. |
 | `pnpm media:clean` | Idem, en supprimant les fichiers dérivés devenus orphelins. |
 | `pnpm brand:assets` | Régénère les icônes et l'image de partage depuis le logo. |
+| `pnpm check:contrast` | Vérifie le contraste AA de tous les couples de couleurs du thème. |
 
 ## Conventions
 

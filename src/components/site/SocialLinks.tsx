@@ -49,7 +49,7 @@ export function SocialLinks({
       {known.map((item) => (
         <a
           aria-label={item.aria}
-          className="clip-node flex h-9 w-9 items-center justify-center border border-line bg-panel text-ink-2 transition-colors hover:border-[#3A2F55] hover:text-cyan"
+          className="clip-node flex h-9 w-9 items-center justify-center border border-line-strong bg-panel text-ink-2 transition-colors hover:border-cyan hover:text-cyan"
           href={item.url}
           key={item.label}
           rel="noopener noreferrer"

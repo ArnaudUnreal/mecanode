@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import React from 'react'
 
+import { JsonLd } from '@/components/seo/JsonLd'
 import { ArrowRight, ArrowUpRight, ButtonLink } from '@/components/ui/Button'
 import { HeroGraph } from '@/components/ui/HeroGraph'
 import { HeroTitle } from '@/components/ui/HeroTitle'
@@ -11,6 +12,7 @@ import { ToolCard } from '@/components/ui/ToolCard'
 import { ToolWires } from '@/components/ui/ToolWires'
 import { Link } from '@/i18n/navigation'
 import { asMedia, getSiteSettings, getTools, type Locale } from '@/lib/content'
+import { SITE_URL } from '@/lib/metadata'
 import { pageMetadata } from '@/lib/metadata'
 import type { Metadata } from 'next'
 
@@ -51,8 +53,32 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     .filter((tile) => tile.media?.url)
     .slice(0, 4)
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': `${SITE_URL}/#site`,
+        name: settings.siteName,
+        url: SITE_URL,
+        inLanguage: locale,
+        description: settings.lede ?? undefined,
+        publisher: { '@id': `${SITE_URL}/#person` },
+      },
+      {
+        '@type': 'Person',
+        '@id': `${SITE_URL}/#person`,
+        name: 'Arnaud Szobad',
+        url: `${SITE_URL}/${locale}`,
+        jobTitle: locale === 'fr' ? 'Développeur Unreal Engine' : 'Unreal Engine developer',
+        sameAs: (settings.elsewhere ?? []).map((item) => item.url),
+      },
+    ],
+  }
+
   return (
     <>
+      <JsonLd data={jsonLd} />
       <section className="relative overflow-hidden px-5 pt-16 pb-11 sm:px-8 sm:pt-20">
         <div className="grid-bg" aria-hidden="true" />
         <div className="relative mx-auto grid max-w-node items-center gap-10 lg:grid-cols-[1.02fr_0.98fr] lg:gap-14">

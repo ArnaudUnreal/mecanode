@@ -18,11 +18,10 @@
     "seed": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed.ts",
     "brand:assets": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/brand-assets.ts",
     "media:regenerate": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/regenerate-media.ts",
-    "media:clean": "cross-env NODE_OPTIONS=--no-deprecation MEDIA_CLEAN=1 payload run scripts/regenerate-media.ts"
+    "media:clean": "cross-env NODE_OPTIONS=--no-deprecation MEDIA_CLEAN=1 payload run scripts/regenerate-media.ts",
+    "check:contrast": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/contrast.ts"
   },
   "dependencies": {
-    "@fontsource-variable/inter": "5.3.0",
-    "@fontsource-variable/jetbrains-mono": "5.3.0",
     "@payloadcms/db-sqlite": "3.90.1",
     "@payloadcms/email-nodemailer": "^3.90.1",
     "@payloadcms/next": "3.90.1",

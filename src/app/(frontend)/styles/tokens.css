@@ -9,11 +9,16 @@
   --panel-2:#20163B;
   --line:#33224F;
   --line-soft:#281A40;
+  /* Bordure des contrôles : champs de formulaire et boutons sans libellé.
+     WCAG 1.4.11 demande 3:1, --line n'en donne que 1,4. */
+  --line-strong:#6F5F99;
 
   /* textes */
   --ink:#EAE7F4;
   --ink-2:#A197C0;
-  --ink-3:#6C6090;
+  /* Éclairci par rapport à la maquette, #6C6090, qui plafonnait à 3,2:1 sur une carte.
+     Le budget de qualité impose AA, donc 4,5:1 pour du texte. */
+  --ink-3:#8677B3;
 
   /* accents */
   --cyan:#2BE5FF;        /* identité, liens actifs, graphe */

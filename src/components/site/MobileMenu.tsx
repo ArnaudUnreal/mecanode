@@ -41,7 +41,7 @@ export function MobileMenu({
         aria-controls="menu-mobile"
         aria-expanded={open}
         aria-label={menuLabel}
-        className="clip-node flex h-10 w-10 items-center justify-center border border-line bg-panel text-ink"
+        className="clip-node flex h-10 w-10 items-center justify-center border border-line-strong bg-panel text-ink"
         onClick={() => setOpen((value) => !value)}
         type="button"
       >

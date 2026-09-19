@@ -4,7 +4,9 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import React from 'react'
 
+import { JsonLd } from '@/components/seo/JsonLd'
 import { asMedia, getPage, getSiteSettings, type Locale } from '@/lib/content'
+import { SITE_URL } from '@/lib/metadata'
 import type { Metadata } from 'next'
 import { pageMetadata } from '@/lib/metadata'
 
@@ -40,8 +42,20 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   const timeline = page.timeline ?? []
   const stats = settings.stats ?? []
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Arnaud Szobad',
+    jobTitle: page.role ?? undefined,
+    description: page.lede ?? undefined,
+    url: `${SITE_URL}/${locale}`,
+    sameAs: (settings.elsewhere ?? []).map((item) => item.url),
+    knowsAbout: ['Unreal Engine', 'Blueprint', 'C++', 'Virtual production', 'Real-time 3D'],
+  }
+
   return (
     <>
+      <JsonLd data={jsonLd} />
       <section className="mx-auto grid max-w-node items-center gap-12 px-5 pt-14 pb-5 sm:px-8 lg:grid-cols-[0.85fr_1.15fr]">
         <div className="relative aspect-square overflow-hidden rounded-[14px] border border-line bg-[#0C0914]">
           {portrait?.url ? (

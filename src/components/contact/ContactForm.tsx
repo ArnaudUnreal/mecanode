@@ -10,7 +10,7 @@ import { LogoStatus } from '@/components/ui/LogoStatus'
 import type { Challenge } from '@/lib/contact'
 
 const field =
-  'w-full border border-line bg-[#0C0914] px-3.5 py-2.5 text-[15px] text-ink transition-colors placeholder:text-ink-3 focus:border-cyan'
+  'w-full border border-line-strong bg-[#0C0914] px-3.5 py-2.5 text-[15px] text-ink transition-colors placeholder:text-ink-3 focus:border-cyan'
 
 function Submit({ label, sending }: { label: string; sending: string }) {
   const { pending } = useFormStatus()

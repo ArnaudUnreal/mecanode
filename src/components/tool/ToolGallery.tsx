@@ -59,7 +59,7 @@ export function ToolGallery({ items, label }: { items: GalleryItem[]; label: str
                 className={`relative block h-[66px] w-full overflow-hidden rounded-lg border bg-[#0C0914] transition-colors ${
                   index === active
                     ? 'border-cyan shadow-[0_0_0_1px_rgba(43,229,255,0.25)]'
-                    : 'border-line hover:border-[#3C5A6E]'
+                    : 'border-line-strong hover:border-cyan'
                 }`}
                 onClick={() => setActive(index)}
                 type="button"
