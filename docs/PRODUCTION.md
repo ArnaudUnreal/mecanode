@@ -27,11 +27,15 @@ Les enregistrements `AAAA` ne sont pas posés : l'IPv6 du serveur n'est pas conf
 
 ## Déployer
 
-Depuis un poste de développement, une fois les modifications poussées sur `main` :
+Depuis un poste de développement, une fois les modifications poussées sur `main`.
+
+`--exclude=.env` n'est pas facultatif : le serveur a sa propre configuration, l'envoi
+l'écraserait par celle du poste de développement.
 
 ```bash
-# 1. Envoyer le code, sans toucher aux données ni aux médias
-tar czf - --exclude=node_modules --exclude=.next --exclude=.git --exclude=data --exclude=media . \
+# 1. Envoyer le code, sans toucher aux données, aux médias ni à la configuration
+tar czf - --exclude=node_modules --exclude=.next --exclude=.git --exclude=data --exclude=media \
+  --exclude=.env . \
   | ssh ubuntu@152.228.140.107 "tar xzf - -C /srv/mecanode/app"
 
 # 2. Installer, migrer, construire, redémarrer, vérifier
