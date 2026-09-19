@@ -71,7 +71,7 @@ export function HeroGraph({ title }: { title: string }) {
             <rect x="26" y="70" width="122" height="80" rx="6" fill="#171227" stroke="#2A2340" />
             <rect x="26" y="70" width="122" height="20" rx="6" fill="#C0392B" fillOpacity="0.85" />
             <rect x="26" y="84" width="122" height="6" fill="#171227" />
-            <text x="38" y="84.5" fill="#F4E4E2" fontFamily="JetBrains Mono, monospace" fontSize="9.5">
+            <text x="38" y="77" dominantBaseline="central" fill="#F4E4E2" fontFamily="JetBrains Mono, monospace" fontSize="9.5">
               Event BeginPlay
             </text>
             <circle cx="148" cy="96" r="4" fill="#2BE5FF" />
@@ -88,7 +88,7 @@ export function HeroGraph({ title }: { title: string }) {
             <rect x="262" y="146" width="142" height="104" rx="6" fill="#171227" stroke="#33294A" />
             <rect x="262" y="146" width="142" height="20" rx="6" fill="#1F6E8C" fillOpacity="0.9" />
             <rect x="262" y="160" width="142" height="6" fill="#171227" />
-            <text x="274" y="160.5" fill="#DCF3F8" fontFamily="JetBrains Mono, monospace" fontSize="9.5">
+            <text x="274" y="153" dominantBaseline="central" fill="#DCF3F8" fontFamily="JetBrains Mono, monospace" fontSize="9.5">
               Mecanode Spawn
             </text>
             <circle cx="262" cy="168" r="4" fill="#2BE5FF" />
@@ -110,7 +110,7 @@ export function HeroGraph({ title }: { title: string }) {
             <rect x="26" y="262" width="122" height="62" rx="6" fill="#171227" stroke="#2A2340" />
             <rect x="26" y="262" width="122" height="18" rx="6" fill="#3B2A7A" fillOpacity="0.9" />
             <rect x="26" y="274" width="122" height="6" fill="#171227" />
-            <text x="38" y="275" fill="#DDD6F6" fontFamily="JetBrains Mono, monospace" fontSize="9">
+            <text x="38" y="268" dominantBaseline="central" fill="#DDD6F6" fontFamily="JetBrains Mono, monospace" fontSize="9">
               Get Profile
             </text>
             <circle cx="148" cy="290" r="4" fill="#2BE5FF" fillOpacity="0.7" />
@@ -121,7 +121,7 @@ export function HeroGraph({ title }: { title: string }) {
             <rect x="498" y="240" width="46" height="16" rx="6" fill="#B85C1E" fillOpacity="0.85" />
             <rect x="498" y="251" width="46" height="5" fill="#171227" />
             <circle cx="498" cy="268" r="4" fill="#FF7A2F" />
-            <text x="508" y="252" fill="#F6E2D4" fontFamily="JetBrains Mono, monospace" fontSize="8">
+            <text x="508" y="245.5" dominantBaseline="central" fill="#F6E2D4" fontFamily="JetBrains Mono, monospace" fontSize="8">
               Add
             </text>
           </g>
