@@ -19,7 +19,8 @@
     "brand:assets": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/brand-assets.ts",
     "media:regenerate": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/regenerate-media.ts",
     "media:clean": "cross-env NODE_OPTIONS=--no-deprecation MEDIA_CLEAN=1 payload run scripts/regenerate-media.ts",
-    "check:contrast": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/contrast.ts"
+    "check:contrast": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/contrast.ts",
+    "admin:password": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/reset-password.ts"
   },
   "dependencies": {
     "@payloadcms/db-sqlite": "3.90.1",

@@ -76,6 +76,26 @@ sudo systemctl restart mecanode
 Un refus `535 5.7.0 Invalid login or password` ne distingue pas un mauvais mot de passe d'un
 service mail encore en cours d'activation : Infomaniak répond la même chose dans les deux cas.
 
+## Reprendre la main sur le back-office
+
+Mot de passe perdu, compte verrouillé après trop d'essais : le courriel de réinitialisation
+n'est pas nécessaire, la base se modifie directement.
+
+```bash
+ssh -t ubuntu@152.228.140.107 "cd /srv/mecanode/app && pnpm admin:password"
+```
+
+Le `-t` est obligatoire : sans terminal, le mot de passe ne peut pas être saisi masqué et
+le script en tire un au hasard qu'il affiche une fois.
+
+Le script demande le nouveau mot de passe deux fois sans jamais l'afficher, douze caractères
+au minimum, puis remet à zéro les tentatives ratées. Aucun redémarrage n'est nécessaire :
+le mot de passe vit en base, pas dans la configuration.
+
+`ADMIN_EMAIL` désigne le compte quand la base en contient plusieurs.
+
+Même commande en local, sans `ssh`, pour la base de développement.
+
 ## Restaurer
 
 ```bash
