@@ -20,7 +20,8 @@
     "skipToContent": "Aller au contenu",
     "mainNav": "Navigation principale",
     "languageSwitch": "Langue",
-    "menu": "Menu"
+    "menu": "Menu",
+    "externalLink": "Ouvrir {name} dans un nouvel onglet"
   },
   "home": {
     "eyebrow": "Unreal Engine {range}",

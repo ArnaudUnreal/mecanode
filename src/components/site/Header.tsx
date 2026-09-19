@@ -3,6 +3,7 @@ import React from 'react'
 
 import { LocaleSwitch } from '@/components/site/LocaleSwitch'
 import { MobileMenu } from '@/components/site/MobileMenu'
+import { SocialLinks } from '@/components/site/SocialLinks'
 import { ArrowUpRight, ButtonLink } from '@/components/ui/Button'
 import { Logo } from '@/components/ui/Logo'
 import { getSiteSettings, type Locale } from '@/lib/content'
@@ -20,6 +21,13 @@ export async function Header() {
   const actions = await getTranslations('actions')
   const a11y = await getTranslations('a11y')
   const settings = await getSiteSettings((await getLocale()) as Locale)
+
+  // Les liens extérieurs viennent des réglages du site, pas du code.
+  const social = (settings.elsewhere ?? []).map((item) => ({
+    label: item.label,
+    url: item.url,
+    aria: a11y('externalLink', { name: item.label }),
+  }))
 
   return (
     <header className="sticky top-0 z-50 border-b border-line-soft bg-[rgba(11,7,22,0.78)] backdrop-blur-[14px]">
@@ -46,6 +54,8 @@ export async function Header() {
 
         <div className="flex-1" />
 
+        <SocialLinks className="hidden sm:flex" items={social} />
+
         <div className="hidden sm:block">
           <LocaleSwitch label={a11y('languageSwitch')} />
         </div>
@@ -54,6 +64,7 @@ export async function Header() {
           items={links.map((link) => ({ href: link.href, label: nav(link.key) }))}
           menuLabel={a11y('menu')}
           languageLabel={a11y('languageSwitch')}
+          social={social}
         />
 
         <ButtonLink href={settings.fabUrl} rel="noopener noreferrer" target="_blank" variant="fab">

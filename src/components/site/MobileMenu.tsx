@@ -3,6 +3,7 @@
 import React from 'react'
 
 import { LocaleSwitch } from '@/components/site/LocaleSwitch'
+import { SocialLinks, type SocialItem } from '@/components/site/SocialLinks'
 import { Link } from '@/i18n/navigation'
 import type { Pathnames } from '@/i18n/routing'
 
@@ -14,10 +15,12 @@ export function MobileMenu({
   items,
   menuLabel,
   languageLabel,
+  social,
 }: {
   items: Item[]
   menuLabel: string
   languageLabel: string
+  social: SocialItem[]
 }) {
   const [open, setOpen] = React.useState(false)
 
@@ -68,8 +71,9 @@ export function MobileMenu({
               </Link>
             ))}
           </nav>
-          <div className="pt-4">
+          <div className="flex items-center justify-between gap-4 pt-4">
             <LocaleSwitch label={languageLabel} />
+            <SocialLinks items={social} />
           </div>
         </div>
       ) : null}
