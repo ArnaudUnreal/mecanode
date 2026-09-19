@@ -62,6 +62,7 @@ const toolSeeds = [
     category: 'physics',
     tags: ['editor', 'code-plugin', 'automation'],
     fabUrl: 'https://www.fab.com/listings/85075872-2ac1-474f-89d3-cce82837ec83',
+    videoUrl: 'https://www.youtube.com/watch?v=PeEs4Sn60aI',
     releaseDate: '2026-05-27',
     featured: true,
     tagline: {
@@ -321,6 +322,7 @@ async function seed() {
         category: categories[tool.category],
         tags: tool.tags.map((slug) => tags[slug]),
         fabUrl: tool.fabUrl,
+        videoUrl: 'videoUrl' in tool ? tool.videoUrl : undefined,
         releaseDate: tool.releaseDate,
         featured: tool.featured,
         releaseNotes: tool.releaseNotes.map((note) => ({

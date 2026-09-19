@@ -11,7 +11,9 @@
     "seeTools": "Voir les outils",
     "allTools": "Tous les outils sur Fab",
     "openGallery": "Ouvrir la galerie",
-    "openStore": "Ouvrir la boutique Mecanode"
+    "openStore": "Ouvrir la boutique Mecanode",
+    "getItOnFab": "Acheter sur Fab",
+    "seeTool": "Voir l'outil"
   },
   "a11y": {
     "skipToContent": "Aller au contenu",
@@ -48,5 +50,17 @@
   "common": {
     "comingSoon": "Le contenu arrive dans un lot ultérieur.",
     "demoContent": "Contenu de démonstration, repris des maquettes Node Graph."
+  },
+  "tool": {
+    "breadcrumb": "Fil d'Ariane",
+    "gallery": "Captures d'écran",
+    "playVideo": "Lire la vidéo",
+    "engine": "Moteur",
+    "released": "Sortie",
+    "latestVersion": "Dernière version",
+    "support": "Support",
+    "supportValue": "Direct, par l'auteur",
+    "whatItDoes": "Ce que ça fait",
+    "releaseNotes": "Notes de version"
   }
 }

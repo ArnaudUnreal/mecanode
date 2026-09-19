@@ -11,7 +11,9 @@
     "seeTools": "See the tools",
     "allTools": "All tools on Fab",
     "openGallery": "Open the gallery",
-    "openStore": "Open the Mecanode store"
+    "openStore": "Open the Mecanode store",
+    "getItOnFab": "Get it on Fab",
+    "seeTool": "See the tool"
   },
   "a11y": {
     "skipToContent": "Skip to content",
@@ -48,5 +50,17 @@
   "common": {
     "comingSoon": "Content lands in a later batch.",
     "demoContent": "Demonstration content, taken from the Node Graph mockups."
+  },
+  "tool": {
+    "breadcrumb": "Breadcrumb",
+    "gallery": "Screenshots",
+    "playVideo": "Play the video",
+    "engine": "Engine",
+    "released": "Released",
+    "latestVersion": "Latest version",
+    "support": "Support",
+    "supportValue": "Direct, by the author",
+    "whatItDoes": "What it does",
+    "releaseNotes": "Release notes"
   }
 }

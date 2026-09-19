@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import React from 'react'
 
 import { Pin } from '@/components/ui/Pin'
+import { Link } from '@/i18n/navigation'
 import { Reveal } from '@/components/ui/Reveal'
 import { SectionHead } from '@/components/ui/SectionHead'
 import { asMedia, getTools, type Locale } from '@/lib/content'
@@ -35,7 +36,10 @@ export default async function GalleryPage({ params }: { params: Promise<{ locale
               delay={index * 0.06}
               className={index === 0 ? 'col-span-2 row-span-2 h-full' : 'h-full'}
             >
-              <div className="relative h-full min-h-[186px] overflow-hidden rounded-[10px] border border-line bg-panel">
+              <Link
+                className="relative block h-full min-h-[186px] overflow-hidden rounded-[10px] border border-line bg-panel transition-colors hover:border-[#3C5A6E]"
+                href={`/tools/${tile.tool.slug}`}
+              >
                 <Image
                   alt={tile.media?.alt ?? ''}
                   className="object-cover"
@@ -50,7 +54,7 @@ export default async function GalleryPage({ params }: { params: Promise<{ locale
                 <span className="absolute bottom-3 left-3.5 z-3 border border-line bg-[rgba(8,10,14,0.72)] px-2.5 py-1 font-mono text-[10.5px] tracking-[0.09em] uppercase text-ink-2 backdrop-blur-[6px]">
                   {tile.tool.name}
                 </span>
-              </div>
+              </Link>
             </Reveal>
           ))}
         </div>

@@ -119,3 +119,18 @@ export function engineRange(versions: string[] | null | undefined): string | nul
     .map((group) => (group.length === 1 ? group[0] : group[0] + ' → ' + group[group.length - 1]))
     .join(' · ')
 }
+
+/** Identifiants d'URL de tous les outils publiés, pour le rendu statique des fiches. */
+export async function getToolSlugs(): Promise<string[]> {
+  const payload = await client()
+
+  const result = await payload.find({
+    collection: 'tools',
+    depth: 0,
+    limit: 200,
+    pagination: false,
+    where: { _status: { equals: 'published' } },
+  })
+
+  return result.docs.map((tool) => tool.slug)
+}
