@@ -49,6 +49,24 @@ export const Pages: CollectionConfig = {
       },
     },
     {
+      name: 'badgeTitle',
+      type: 'text',
+      localized: true,
+      label: { en: 'Badge title', fr: 'Titre du badge' },
+      admin: {
+        description: {
+          en: 'Certification highlighted next to the profile. Left empty, the card is hidden.',
+          fr: 'Certification mise en avant sur le profil. Laissé vide, la carte est masquée.',
+        },
+      },
+    },
+    {
+      name: 'badgeText',
+      type: 'text',
+      localized: true,
+      label: { en: 'Badge text', fr: 'Texte du badge' },
+    },
+    {
       name: 'timeline',
       type: 'array',
       label: { en: 'Timeline', fr: 'Parcours' },

@@ -262,6 +262,11 @@ export interface Page {
    */
   role?: string | null;
   /**
+   * Certification highlighted next to the profile. Left empty, the card is hidden.
+   */
+  badgeTitle?: string | null;
+  badgeText?: string | null;
+  /**
    * Left empty, the section does not appear on the page.
    */
   timeline?:
@@ -457,6 +462,8 @@ export interface PagesSelect<T extends boolean = true> {
   title?: T;
   lede?: T;
   role?: T;
+  badgeTitle?: T;
+  badgeText?: T;
   timeline?:
     | T
     | {

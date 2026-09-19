@@ -61,6 +61,21 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               <RichText data={page.content} />
             </div>
           ) : null}
+
+          {page.badgeTitle ? (
+            <div className="mt-6 flex max-w-[520px] items-center gap-4 rounded-[10px] border border-[rgba(43,229,255,0.22)] bg-[rgba(43,229,255,0.05)] px-[18px] py-4">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+                <path d="M11 2 L19 6.5 V15.5 L11 20 L3 15.5 V6.5 Z" stroke="var(--cyan)" strokeWidth="1.3" />
+                <path d="M7.5 11 L10 13.5 L14.5 8.5" stroke="var(--cyan)" strokeWidth="1.5" />
+              </svg>
+              <span>
+                <b className="mb-0.5 block text-[15px] font-semibold text-ink">{page.badgeTitle}</b>
+                {page.badgeText ? (
+                  <span className="text-[13.5px] text-ink-2">{page.badgeText}</span>
+                ) : null}
+              </span>
+            </div>
+          ) : null}
         </div>
       </section>
 

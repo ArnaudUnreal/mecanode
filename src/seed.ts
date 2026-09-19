@@ -359,12 +359,42 @@ async function seed() {
     data: {
       title: 'Arnaud Szobad',
       slug: 'about',
-      role: 'Unreal Engine developer · Instructor',
-      lede: 'Ten years of Blueprint, two of C++, and a classroom to keep both honest.',
+      role: 'Unreal Engine developer · Unreal 5.x Authorized Instructor',
+      lede: 'I build Unreal Engine systems that run live in front of an audience: TV broadcast, e-sport, live events.',
+      badgeTitle: 'Unreal Engine 5 Authorized Instructor',
+      badgeText: 'Certified by Epic Games, 2023',
       content: richText([
-        'I build Unreal Engine tools for production teams and teach the engine to the students who will use them.',
-        'Everything on Fab started as a problem on a real project, then got sharpened by a room full of students asking why it works that way.',
+        'Eight years in television post-production, eight years in fullstack development, real time since 2016. I read a data stream the way an editor reads rushes, and I structure a project the way a developer does.',
+        "My systems have gone live on Eurosport, La chaîne L'Équipe, Amazon Prime Video, Twitch and the UTMB YouTube channel, up to the giant screen on the main square in Chamonix.",
+        'Mecanode is where the tools born from that work live.',
       ]),
+      timeline: [
+        {
+          period: '2018 →',
+          title: 'Unreal Engine developer, freelance',
+          text: 'Procedural generation, augmented reality and broadcast real time: Ai-Verse, the Ultra-Trail du Mont-Blanc with LTV Prod, Riot Games and Amazon with Tessellation, Luxigon.',
+        },
+        {
+          period: '2021 →',
+          title: 'Unreal Engine instructor',
+          text: 'New3dge and IIM this year; previously ESILV, HELHa, Rubika, INA and Gobelins-Méliès. Engine discovery, algorithms, Blueprint, an introduction to C++, project supervision and defence.',
+        },
+        {
+          period: '2016 — 2018',
+          title: 'Real-time studio manager',
+          text: 'Alternative Développement, Saint-Denis. Commissioning of the Zero Density Reality virtual studio, Unreal sets, live interaction Blueprints.',
+        },
+        {
+          period: '2008 — 2016',
+          title: 'Fullstack developer, project manager',
+          text: 'Kiwixi, Paris. Websites and web applications in PHP, JavaScript, HTML and CSS, interfaces and APIs. Total, Prisma Presse, ACTA, French Ministry of Agriculture, mylittleroom.',
+        },
+        {
+          period: '2000 — 2008',
+          title: 'Editor and compositor, trainer, freelance',
+          text: 'Commercials and show titles for M6, Nickelodeon and France Télévisions. Adobe trainer for professionals and beginners.',
+        },
+      ],
       _status: 'published',
     },
   })
@@ -374,12 +404,42 @@ async function seed() {
     locale: 'fr',
     data: {
       title: 'Arnaud Szobad',
-      role: 'Développeur Unreal Engine · Enseignant',
-      lede: 'Dix ans de Blueprint, deux ans de C++, et une salle de classe pour tenir les deux.',
+      role: 'Développeur Unreal Engine · Unreal 5.x Authorized Instructor',
+      lede: 'Je conçois des systèmes Unreal Engine qui tournent en direct devant du public : diffusion TV, e-sport, événementiel.',
+      badgeTitle: 'Unreal Engine 5 Authorized Instructor',
+      badgeText: 'Certifié par Epic Games, 2023',
       content: richText([
-        "Je construis des outils Unreal Engine pour des équipes de production, et j'enseigne le moteur à ceux qui les utiliseront.",
-        "Tout ce qui est sur Fab est né d'un problème sur un vrai projet, puis affûté par une salle d'étudiants qui demandent pourquoi ça marche comme ça.",
+        "Huit ans de post-production télé, huit ans de développement fullstack, le temps réel depuis 2016. Je lis un flux de données comme un monteur lit un rush, et je structure un projet comme un développeur.",
+        "Mes systèmes sont passés en direct sur Eurosport, La chaîne L'Équipe, Amazon Prime Video, Twitch et le YouTube de l'UTMB, jusqu'à l'écran géant de la place de Chamonix.",
+        "Mecanode est l'endroit où vivent les outils qui en sont sortis.",
       ]),
+      timeline: [
+        {
+          period: '2018 →',
+          title: 'Développeur Unreal Engine, freelance',
+          text: "Génération procédurale, réalité augmentée et temps réel de diffusion : Ai-Verse, l'Ultra-Trail du Mont-Blanc avec LTV Prod, Riot Games et Amazon avec Tessellation, Luxigon.",
+        },
+        {
+          period: '2021 →',
+          title: 'Intervenant Unreal Engine',
+          text: "New3dge et l'IIM cette année ; auparavant l'ESILV, la HELHa, Rubika, l'INA et les Gobelins-Méliès. Découverte du moteur, algorithmie, Blueprint, initiation au C++, suivi et soutenance de projets.",
+        },
+        {
+          period: '2016 — 2018',
+          title: 'Responsable studio temps réel',
+          text: "Alternative Développement, Saint-Denis. Mise en service du studio virtuel Zero Density Reality, décors Unreal, Blueprints d'interaction en direct.",
+        },
+        {
+          period: '2008 — 2016',
+          title: 'Développeur fullstack, chef de projet',
+          text: "Kiwixi, Paris. Sites et applications web en PHP, JavaScript, HTML et CSS, interfaces et API. Total, Prisma Presse, ACTA, Ministère de l'Agriculture, mylittleroom.",
+        },
+        {
+          period: '2000 — 2008',
+          title: 'Monteur-truquiste, formateur, freelance',
+          text: 'Publicités et génériques pour M6, Nickelodeon et France Télévisions. Formateur Adobe pour professionnels et débutants.',
+        },
+      ],
       _status: 'published',
     },
   })
@@ -405,15 +465,15 @@ async function seed() {
       fabUrl: FAB_STORE,
       engineRange: '4.25 → 5.7',
       stats: [
-        { value: '10', label: 'years of Blueprint', highlight: false },
-        { value: '2', label: 'years of C++', highlight: true },
-        { value: '4.25 → 5.7', label: 'engine versions', highlight: false },
-        { value: '5', label: 'tools on Fab', highlight: false },
+        { value: '16', label: 'years in the trade', highlight: true },
+        { value: '2016', label: 'on Unreal since', highlight: false },
+        { value: '5', label: 'tools published on Fab', highlight: false },
+        { value: '7', label: 'schools taught in', highlight: false },
       ],
       elsewhere: [
         { label: 'Fab', url: FAB_STORE },
-        { label: 'YouTube', url: 'https://www.youtube.com/' },
-        { label: 'LinkedIn', url: 'https://www.linkedin.com/' },
+        { label: 'LinkedIn', url: 'https://www.linkedin.com/in/arnaud-szobad' },
+        { label: 'Contact', url: 'mailto:aszobad@gmail.com' },
       ],
     },
   })
@@ -435,10 +495,10 @@ async function seed() {
       lede: "Plugins d'éditeur et systèmes Blueprint, nés de dix ans de production et d'enseignement. À poser dans le projet, pour livrer plus vite et garder un graphe lisible.",
       footerNote: 'Des outils Unreal Engine, éprouvés en production et essayés en cours.',
       stats: [
-        { value: '10', label: 'ans de Blueprint', highlight: false },
-        { value: '2', label: 'ans de C++', highlight: true },
-        { value: '4.25 → 5.7', label: "versions d'Unreal", highlight: false },
-        { value: '5', label: 'outils sur Fab', highlight: false },
+        { value: '16', label: 'ans de métier', highlight: true },
+        { value: '2016', label: 'sur Unreal depuis', highlight: false },
+        { value: '5', label: 'outils publiés sur Fab', highlight: false },
+        { value: '7', label: 'écoles où je suis intervenu', highlight: false },
       ],
     },
   })
