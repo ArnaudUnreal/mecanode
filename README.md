@@ -57,6 +57,9 @@ fichiers ne se relit pas.
 | `pnpm payload migrate:create` | Crée une migration après modification d'une collection. |
 | `pnpm payload migrate` | Applique les migrations en attente. |
 | `pnpm seed` | Remplit la base avec le jeu de données d'exemple, en anglais et en français. |
+| `pnpm media:regenerate` | Refabrique les tailles dérivées des médias après un changement de `imageSizes`. |
+| `pnpm media:clean` | Idem, en supprimant les fichiers dérivés devenus orphelins. |
+| `pnpm brand:assets` | Régénère les icônes et l'image de partage depuis le logo. |
 
 ## Conventions
 
