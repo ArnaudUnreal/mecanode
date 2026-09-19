@@ -26,7 +26,7 @@
     "toolsTitle": "En vente sur Fab",
     "toolsLede": "{count, plural, one {Un outil} other {# outils}} sur Fab, chacun né d'un problème rencontré en production et affûté en cours.",
     "galleryLabel": "02 — Galerie",
-    "galleryTitle": "Le travail dans la viewport",
+    "galleryTitle": "Le travail dans le viewport",
     "ctaLabel": "03 — Fab"
   },
   "footer": {
