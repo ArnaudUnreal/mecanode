@@ -1,5 +1,8 @@
 import type { CollectionConfig } from 'payload'
 
+import { isAdmin } from '@/collections/Users'
+
+import { languagesColumn } from '@/fields/languages'
 import { slugField } from '@/fields/slug'
 
 /**
@@ -14,11 +17,15 @@ export const Tags: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['name', 'kind', 'slug', 'updatedAt'],
+    defaultColumns: ['name', 'kind', 'languages', 'slug', 'updatedAt'],
+    listSearchableFields: ['name', 'slug'],
     group: { en: 'Content', fr: 'Contenu' },
   },
   access: {
     read: () => true,
+    create: ({ req }) => Boolean(req.user),
+    update: ({ req }) => Boolean(req.user),
+    delete: ({ req }) => isAdmin(req.user),
   },
   fields: [
     {
@@ -40,5 +47,6 @@ export const Tags: CollectionConfig = {
       ],
     },
     ...slugField('name'),
+    languagesColumn,
   ],
 }

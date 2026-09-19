@@ -1,5 +1,8 @@
 import type { CollectionConfig } from 'payload'
 
+import { isAdmin } from '@/collections/Users'
+
+import { languagesColumn } from '@/fields/languages'
 import { slugField } from '@/fields/slug'
 
 /** Pages éditoriales : profil, enseignement, mentions. Le contenu est localisé. */
@@ -11,11 +14,15 @@ export const Pages: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'slug', 'updatedAt', '_status'],
+    defaultColumns: ['title', '_status', 'languages', 'slug', 'updatedAt'],
+    listSearchableFields: ['title', 'slug', 'lede'],
     group: { en: 'Content', fr: 'Contenu' },
   },
   access: {
     read: () => true,
+    create: ({ req }) => Boolean(req.user),
+    update: ({ req }) => Boolean(req.user),
+    delete: ({ req }) => isAdmin(req.user),
   },
   versions: {
     drafts: {
@@ -122,5 +129,6 @@ export const Pages: CollectionConfig = {
       label: { en: 'Content', fr: 'Contenu' },
     },
     ...slugField('title'),
+    languagesColumn,
   ],
 }

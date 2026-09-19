@@ -1,6 +1,8 @@
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { en } from '@payloadcms/translations/languages/en'
+import { fr } from '@payloadcms/translations/languages/fr'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
@@ -25,9 +27,15 @@ export default buildConfig({
     meta: {
       titleSuffix: ' — MECANODE',
     },
+    dateFormat: 'dd/MM/yyyy',
   },
   collections: [Tools, Tags, Pages, Media, Users],
   globals: [SiteSettings],
+  // Interface du back-office : français par défaut, anglais disponible.
+  i18n: {
+    fallbackLanguage: 'fr',
+    supportedLanguages: { en, fr },
+  },
   // Bilinguisme champ par champ sur un document unique : un texte français absent
   // retombe sur l'anglais, jamais l'inverse.
   localization: {

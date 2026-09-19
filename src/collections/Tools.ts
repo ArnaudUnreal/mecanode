@@ -1,5 +1,8 @@
 import type { CollectionConfig } from 'payload'
 
+import { isAdmin } from '@/collections/Users'
+
+import { languagesColumn } from '@/fields/languages'
 import { slugField } from '@/fields/slug'
 
 const engineVersionOptions = [
@@ -30,11 +33,16 @@ export const Tools: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['name', 'category', 'featured', 'releaseDate', '_status'],
+    defaultColumns: ['name', '_status', 'languages', 'engineVersions', 'featured', 'updatedAt'],
+    listSearchableFields: ['name', 'slug', 'tagline'],
+    pagination: { defaultLimit: 25 },
     group: { en: 'Catalogue', fr: 'Catalogue' },
   },
   access: {
     read: () => true,
+    create: ({ req }) => Boolean(req.user),
+    update: ({ req }) => Boolean(req.user),
+    delete: ({ req }) => isAdmin(req.user),
   },
   versions: {
     drafts: {
@@ -205,5 +213,6 @@ export const Tools: CollectionConfig = {
       admin: { position: 'sidebar' },
     },
     ...slugField('name'),
+    languagesColumn,
   ],
 }

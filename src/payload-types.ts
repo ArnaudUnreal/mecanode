@@ -307,6 +307,11 @@ export interface Page {
  */
 export interface User {
   id: number;
+  name?: string | null;
+  /**
+   * An editor writes and publishes content. An administrator also manages accounts and settings.
+   */
+  role: 'admin' | 'editor';
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -538,6 +543,8 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  name?: T;
+  role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
