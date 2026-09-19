@@ -39,6 +39,7 @@ pnpm dev
 | Base SQLite | `data/mecanode.db` | non |
 | Médias téléversés | `media/` | non |
 | Types générés par Payload | `src/payload-types.ts` | oui |
+| Migrations | `src/migrations/` | oui |
 
 Les deux dossiers `data/` et `media/` sont à sauvegarder ensemble : une base sans ses
 fichiers ne se relit pas.
@@ -54,13 +55,16 @@ fichiers ne se relit pas.
 | `npx tsc --noEmit` | Vérification des types, sans émission. |
 | `pnpm payload generate:types` | Régénère `src/payload-types.ts` depuis les collections. |
 | `pnpm payload migrate:create` | Crée une migration après modification d'une collection. |
+| `pnpm payload migrate` | Applique les migrations en attente. |
+| `pnpm seed` | Remplit la base avec le jeu de données d'exemple, en anglais et en français. |
 
 ## Conventions
 
 - Le front lit la base par l'API locale de Payload, jamais par HTTP au build.
 - Les types du contenu sont générés, jamais écrits à la main.
 - Les polices sont servies par le site.
-- Bilinguisme champ par champ, `en` par défaut, `fr` en repli sur `en`.
+- Bilinguisme champ par champ, `en` par défaut, un champ `fr` vide retombe sur `en`.
+- La poussée automatique du schéma est désactivée : toute évolution d'une collection passe par une migration, en développement comme en production.
 
 ## Déploiement
 

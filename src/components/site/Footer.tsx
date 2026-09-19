@@ -2,16 +2,17 @@ import { getLocale, getTranslations } from 'next-intl/server'
 import React from 'react'
 
 import { Logo } from '@/components/ui/Logo'
-import { demoSite, demoTools, pick, type Locale } from '@/content/demo'
 import { Link } from '@/i18n/navigation'
+import { getSiteSettings, getTools, type Locale } from '@/lib/content'
 
 export async function Footer() {
   const locale = (await getLocale()) as Locale
   const nav = await getTranslations('nav')
   const footer = await getTranslations('footer')
 
-  const linkClass =
-    'block py-[5px] text-sm text-ink-2 transition-colors hover:text-cyan focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan'
+  const [settings, tools] = await Promise.all([getSiteSettings(locale), getTools(locale)])
+
+  const linkClass = 'block py-[5px] text-sm text-ink-2 transition-colors hover:text-cyan'
 
   return (
     <footer className="relative mt-8 border-t border-line-soft pt-14 pb-10">
@@ -20,18 +21,20 @@ export async function Footer() {
           <div className="col-span-2 md:col-span-1">
             <div className="mb-3.5 flex items-center gap-2.5 text-[13px] font-extrabold tracking-[0.2em]">
               <Logo size={18} />
-              MECANODE
+              {settings.siteName}
             </div>
-            <p className="max-w-[34ch] text-sm text-ink-3">{pick(demoSite.note, locale)}</p>
+            {settings.footerNote ? (
+              <p className="max-w-[34ch] text-sm text-ink-3">{settings.footerNote}</p>
+            ) : null}
           </div>
 
           <div>
             <h2 className="mb-4 font-mono text-[11px] font-medium tracking-[0.12em] uppercase text-ink-3">
               {footer('tools')}
             </h2>
-            {demoTools.map((tool) => (
+            {tools.map((tool) => (
               <a
-                key={tool.slug}
+                key={tool.id}
                 className={linkClass}
                 href={tool.fabUrl}
                 rel="noopener noreferrer"
@@ -58,8 +61,14 @@ export async function Footer() {
             <h2 className="mb-4 font-mono text-[11px] font-medium tracking-[0.12em] uppercase text-ink-3">
               {footer('elsewhere')}
             </h2>
-            {demoSite.elsewhere.map((item) => (
-              <a key={item.label} className={linkClass} href={item.href}>
+            {(settings.elsewhere ?? []).map((item) => (
+              <a
+                key={item.id ?? item.url}
+                className={linkClass}
+                href={item.url}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 {item.label}
               </a>
             ))}
@@ -68,7 +77,7 @@ export async function Footer() {
 
         <div className="flex flex-wrap items-center justify-between gap-5 border-t border-line-soft pt-[22px] text-[13px] text-ink-3">
           <span className="text-ink-2">
-            {footer('builtBy')} <b className="font-semibold text-ink">{demoSite.author}</b>
+            {footer('builtBy')} <b className="font-semibold text-ink">Arnaud Szobad</b>
           </span>
           <span>© {new Date().getFullYear()} Mecanode</span>
         </div>

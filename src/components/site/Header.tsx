@@ -1,11 +1,11 @@
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 import React from 'react'
 
 import { LocaleSwitch } from '@/components/site/LocaleSwitch'
 import { MobileMenu } from '@/components/site/MobileMenu'
 import { ArrowUpRight, ButtonLink } from '@/components/ui/Button'
 import { Logo } from '@/components/ui/Logo'
-import { demoSite } from '@/content/demo'
+import { getSiteSettings, type Locale } from '@/lib/content'
 import { Link } from '@/i18n/navigation'
 
 const links = [
@@ -18,6 +18,7 @@ export async function Header() {
   const nav = await getTranslations('nav')
   const actions = await getTranslations('actions')
   const a11y = await getTranslations('a11y')
+  const settings = await getSiteSettings((await getLocale()) as Locale)
 
   return (
     <header className="sticky top-0 z-50 border-b border-line-soft bg-[rgba(11,7,22,0.78)] backdrop-blur-[14px]">
@@ -54,7 +55,7 @@ export async function Header() {
           languageLabel={a11y('languageSwitch')}
         />
 
-        <ButtonLink href={demoSite.fabUrl} rel="noopener noreferrer" target="_blank" variant="fab">
+        <ButtonLink href={settings.fabUrl} rel="noopener noreferrer" target="_blank" variant="fab">
           <span className="hidden sm:inline">{actions('browseOn')} </span>Fab
           <ArrowUpRight />
         </ButtonLink>
