@@ -40,16 +40,18 @@
   "gallery": {
     "label": "Travaux choisis",
     "title": "Galerie",
-    "lede": "Captures, décompositions et extraits, de la production comme des cours."
+    "lede": "Tous les visuels des outils, filtrés par catégorie ou par étiquette.",
+    "all": "Tout",
+    "count": "{count, plural, one {# visuel} other {# visuels}}",
+    "empty": "Aucun visuel ne correspond à ce filtre.",
+    "reset": "Tout afficher"
   },
   "about": {
     "label": "Profil",
     "title": "Profil et enseignement",
-    "lede": "Dix ans de Blueprint, deux ans de C++, et une salle de classe pour tenir les deux."
-  },
-  "common": {
-    "comingSoon": "Le contenu arrive dans un lot ultérieur.",
-    "demoContent": "Contenu de démonstration, repris des maquettes Node Graph."
+    "lede": "Dix ans de Blueprint, deux ans de C++, et une salle de classe pour tenir les deux.",
+    "portraitMissing": "Portrait à fournir",
+    "timeline": "Parcours"
   },
   "tool": {
     "breadcrumb": "Fil d'Ariane",

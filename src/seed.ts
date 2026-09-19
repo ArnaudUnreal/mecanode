@@ -357,8 +357,9 @@ async function seed() {
     collection: 'pages',
     locale: 'en',
     data: {
-      title: 'About and teaching',
+      title: 'Arnaud Szobad',
       slug: 'about',
+      role: 'Unreal Engine developer · Instructor',
       lede: 'Ten years of Blueprint, two of C++, and a classroom to keep both honest.',
       content: richText([
         'I build Unreal Engine tools for production teams and teach the engine to the students who will use them.',
@@ -372,7 +373,8 @@ async function seed() {
     id: about.id,
     locale: 'fr',
     data: {
-      title: 'Profil et enseignement',
+      title: 'Arnaud Szobad',
+      role: 'Développeur Unreal Engine · Enseignant',
       lede: 'Dix ans de Blueprint, deux ans de C++, et une salle de classe pour tenir les deux.',
       content: richText([
         "Je construis des outils Unreal Engine pour des équipes de production, et j'enseigne le moteur à ceux qui les utiliseront.",

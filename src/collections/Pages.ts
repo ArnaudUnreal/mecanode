@@ -37,6 +37,61 @@ export const Pages: CollectionConfig = {
       label: { en: 'Lede', fr: 'Chapeau' },
     },
     {
+      name: 'role',
+      type: 'text',
+      localized: true,
+      label: { en: 'Role line', fr: 'Ligne de rôle' },
+      admin: {
+        description: {
+          en: 'Short line above the title, e.g. Unreal Engine developer · Instructor.',
+          fr: 'Ligne courte au-dessus du titre, par exemple Développeur Unreal Engine · Enseignant.',
+        },
+      },
+    },
+    {
+      name: 'timeline',
+      type: 'array',
+      label: { en: 'Timeline', fr: 'Parcours' },
+      labels: {
+        singular: { en: 'Entry', fr: 'Étape' },
+        plural: { en: 'Entries', fr: 'Étapes' },
+      },
+      admin: {
+        description: {
+          en: 'Left empty, the section does not appear on the page.',
+          fr: "Laissé vide, la section n'apparaît pas sur la page.",
+        },
+      },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'period',
+              type: 'text',
+              required: true,
+              label: { en: 'Period', fr: 'Période' },
+              admin: { width: '30%' },
+            },
+            {
+              name: 'title',
+              type: 'text',
+              required: true,
+              localized: true,
+              label: { en: 'Title', fr: 'Titre' },
+              admin: { width: '70%' },
+            },
+          ],
+        },
+        {
+          name: 'text',
+          type: 'textarea',
+          localized: true,
+          label: { en: 'Text', fr: 'Texte' },
+        },
+      ],
+    },
+    {
       name: 'heroImage',
       type: 'upload',
       relationTo: 'media',

@@ -134,3 +134,80 @@ export async function getToolSlugs(): Promise<string[]> {
 
   return result.docs.map((tool) => tool.slug)
 }
+
+export type GalleryEntry = {
+  id: number
+  url: string
+  alt: string
+  width: number | null
+  height: number | null
+  toolName: string
+  toolSlug: string
+  categorySlug: string | null
+  categoryName: string | null
+  tagSlugs: string[]
+}
+
+/**
+ * Tous les visuels des outils publiés, visuel principal compris, à plat.
+ * Chaque entrée porte de quoi filtrer : catégorie et étiquettes de son outil.
+ */
+export async function getGalleryEntries(locale: Locale): Promise<GalleryEntry[]> {
+  const tools = await getTools(locale)
+  const entries: GalleryEntry[] = []
+
+  for (const tool of tools) {
+    const category = asTag(tool.category)
+    const tagSlugs = (tool.tags ?? [])
+      .map(asTag)
+      .filter(Boolean)
+      .map((tag) => tag!.slug)
+
+    for (const value of [tool.mainImage, ...(tool.gallery ?? [])]) {
+      const media = asMedia(value)
+      if (!media?.url) continue
+
+      entries.push({
+        id: media.id,
+        url: media.url,
+        alt: media.alt ?? '',
+        width: media.width ?? null,
+        height: media.height ?? null,
+        toolName: tool.name,
+        toolSlug: tool.slug,
+        categorySlug: category?.slug ?? null,
+        categoryName: category?.name ?? null,
+        tagSlugs,
+      })
+    }
+  }
+
+  return entries
+}
+
+export type Facet = { slug: string; name: string; count: number }
+
+/** Catégories et étiquettes réellement présentes dans la galerie, avec leur décompte. */
+export async function getGalleryFacets(locale: Locale) {
+  const payload = await client()
+  const entries = await getGalleryEntries(locale)
+
+  const tags = await payload.find({ collection: 'tags', locale, depth: 0, limit: 100 })
+  const nameOf = new Map(tags.docs.map((tag) => [tag.slug, tag.name]))
+
+  const count = (slugs: string[]) =>
+    slugs.reduce<Record<string, number>>((acc, slug) => {
+      acc[slug] = (acc[slug] ?? 0) + 1
+      return acc
+    }, {})
+
+  const categories = count(entries.map((e) => e.categorySlug).filter(Boolean) as string[])
+  const tagCounts = count(entries.flatMap((e) => e.tagSlugs))
+
+  const toFacets = (counts: Record<string, number>): Facet[] =>
+    Object.entries(counts)
+      .map(([slug, value]) => ({ slug, name: nameOf.get(slug) ?? slug, count: value }))
+      .sort((a, b) => b.count - a.count)
+
+  return { categories: toFacets(categories), tags: toFacets(tagCounts) }
+}

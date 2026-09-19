@@ -40,16 +40,18 @@
   "gallery": {
     "label": "Selected work",
     "title": "Gallery",
-    "lede": "Captures, breakdowns and reels from production and teaching."
+    "lede": "Every screenshot from the toolset, filtered by category or by tag.",
+    "all": "All",
+    "count": "{count, plural, one {# image} other {# images}}",
+    "empty": "Nothing matches this filter yet.",
+    "reset": "Show everything"
   },
   "about": {
     "label": "Profile",
     "title": "About and teaching",
-    "lede": "Ten years of Blueprint, two of C++, and a classroom to keep both honest."
-  },
-  "common": {
-    "comingSoon": "Content lands in a later batch.",
-    "demoContent": "Demonstration content, taken from the Node Graph mockups."
+    "lede": "Ten years of Blueprint, two of C++, and a classroom to keep both honest.",
+    "portraitMissing": "Portrait to supply",
+    "timeline": "Track record"
   },
   "tool": {
     "breadcrumb": "Breadcrumb",

@@ -257,6 +257,21 @@ export interface Page {
   id: number;
   title: string;
   lede?: string | null;
+  /**
+   * Short line above the title, e.g. Unreal Engine developer · Instructor.
+   */
+  role?: string | null;
+  /**
+   * Left empty, the section does not appear on the page.
+   */
+  timeline?:
+    | {
+        period: string;
+        title: string;
+        text?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   heroImage?: (number | null) | Media;
   content?: {
     root: {
@@ -441,6 +456,15 @@ export interface TagsSelect<T extends boolean = true> {
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
   lede?: T;
+  role?: T;
+  timeline?:
+    | T
+    | {
+        period?: T;
+        title?: T;
+        text?: T;
+        id?: T;
+      };
   heroImage?: T;
   content?: T;
   slug?: T;
