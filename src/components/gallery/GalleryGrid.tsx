@@ -103,14 +103,18 @@ export function GalleryGrid({
         <ul className="m-0 grid list-none grid-cols-1 gap-[18px] p-0 sm:grid-cols-2 lg:grid-cols-3">
           {visible.map((entry) =>
             entry.kind === 'video' && entry.videoUrl ? (
-              <li key={entry.id} className="sm:col-span-2">
+              <li key={entry.id} className="relative">
                 <VideoFacade
+                  className="relative aspect-video overflow-hidden rounded-[10px] border border-line bg-panel"
                   label={tool('playVideo')}
                   poster={entry.url}
                   posterAlt={entry.alt}
                   url={entry.videoUrl}
                 />
-                <span className="mt-2 block font-mono text-[10.5px] tracking-[0.09em] uppercase text-ink-3">
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute bottom-3 left-3.5 z-3 border border-line bg-[rgba(8,10,14,0.72)] px-2.5 py-1 font-mono text-[10.5px] tracking-[0.09em] uppercase text-ink-2 backdrop-blur-[6px]"
+                >
                   {entry.toolName} — {t('video')}
                 </span>
               </li>

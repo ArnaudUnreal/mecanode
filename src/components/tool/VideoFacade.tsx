@@ -23,11 +23,13 @@ export function VideoFacade({
   poster,
   posterAlt,
   label,
+  className = 'relative aspect-video overflow-hidden rounded-xl border border-line bg-[#0C0914]',
 }: {
   url: string
   poster?: string | null
   posterAlt?: string
   label: string
+  className?: string
 }) {
   const [playing, setPlaying] = React.useState(false)
   const embed = embedUrl(url)
@@ -35,7 +37,7 @@ export function VideoFacade({
   if (!embed) return null
 
   return (
-    <div className="relative aspect-video overflow-hidden rounded-xl border border-line bg-[#0C0914]">
+    <div className={className}>
       {playing ? (
         <iframe
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -53,12 +55,16 @@ export function VideoFacade({
           {poster ? (
             <Image
               alt={posterAlt ?? ''}
-              className="object-cover opacity-70 transition-opacity group-hover:opacity-90"
+              className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
               fill
               sizes="(max-width: 1024px) 100vw, 760px"
               src={poster}
             />
           ) : null}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 bg-linear-to-b from-[rgba(6,8,12,0.35)] to-[rgba(6,8,12,0.75)]"
+          />
           <span className="relative z-2 flex h-full w-full items-center justify-center">
             <span className="clip-node flex items-center gap-2.5 border border-line bg-[rgba(11,7,22,0.82)] px-[18px] py-2.5 text-[13.5px] font-semibold backdrop-blur-[6px]">
               <svg width="12" height="14" viewBox="0 0 12 14" fill="none" aria-hidden="true">
