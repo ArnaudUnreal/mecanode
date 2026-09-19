@@ -30,7 +30,7 @@ export async function ToolCard({ tool }: { tool: Tool }) {
       </div>
       <div className="flex flex-1 flex-col px-[22px] pt-5 pb-6">
         <h3 className="m-0 mb-2 text-[19px] font-semibold tracking-[-0.015em]">
-          <Link className="transition-colors hover:text-cyan" href={`/tools/${tool.slug}`}>
+          <Link className="transition-colors hover:text-cyan" href={{ pathname: '/tools/[slug]', params: { slug: tool.slug } }}>
             {tool.name}
           </Link>
         </h3>

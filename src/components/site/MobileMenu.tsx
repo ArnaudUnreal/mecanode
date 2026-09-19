@@ -4,8 +4,10 @@ import React from 'react'
 
 import { LocaleSwitch } from '@/components/site/LocaleSwitch'
 import { Link } from '@/i18n/navigation'
+import type { Pathnames } from '@/i18n/routing'
 
-type Item = { href: string; label: string }
+// Le menu ne pointe que vers des pages fixes, jamais vers une fiche outil.
+type Item = { href: Exclude<Pathnames, '/tools/[slug]'>; label: string }
 
 /** Navigation repliée sous 768 px : bouton, panneau, fermeture à la touche d'échappement. */
 export function MobileMenu({

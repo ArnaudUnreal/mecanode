@@ -4,6 +4,24 @@ import React from 'react'
 import { GalleryGrid } from '@/components/gallery/GalleryGrid'
 import { SectionHead } from '@/components/ui/SectionHead'
 import { getGalleryEntries, getGalleryFacets, type Locale } from '@/lib/content'
+import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/metadata'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'gallery' })
+
+  return pageMetadata({
+    href: '/gallery',
+    locale: locale as Locale,
+    title: t('title') + ' — MECANODE',
+    description: t('lede'),
+  })
+}
 
 export default async function GalleryPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params

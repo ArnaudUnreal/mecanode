@@ -11,6 +11,25 @@ import { ToolCard } from '@/components/ui/ToolCard'
 import { ToolWires } from '@/components/ui/ToolWires'
 import { Link } from '@/i18n/navigation'
 import { asMedia, getSiteSettings, getTools, type Locale } from '@/lib/content'
+import { pageMetadata } from '@/lib/metadata'
+import type { Metadata } from 'next'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'home' })
+  const settings = await getSiteSettings(locale as Locale)
+
+  return pageMetadata({
+    href: '/',
+    locale: locale as Locale,
+    title: 'MECANODE — ' + (settings.tagline ?? t('toolsTitle')),
+    description: settings.lede ?? t('toolsLede', { count: 5 }),
+  })
+}
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params

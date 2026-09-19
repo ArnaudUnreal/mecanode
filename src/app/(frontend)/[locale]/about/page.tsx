@@ -5,6 +5,24 @@ import { notFound } from 'next/navigation'
 import React from 'react'
 
 import { asMedia, getPage, getSiteSettings, type Locale } from '@/lib/content'
+import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/metadata'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const page = await getPage('about', locale as Locale)
+
+  return pageMetadata({
+    href: '/about',
+    locale: locale as Locale,
+    title: (page?.title ?? 'Arnaud Szobad') + ' — MECANODE',
+    description: page?.lede ?? '',
+  })
+}
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params

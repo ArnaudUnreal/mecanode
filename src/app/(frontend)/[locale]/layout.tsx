@@ -11,9 +11,14 @@ import React from 'react'
 import { Footer } from '@/components/site/Footer'
 import { Header } from '@/components/site/Header'
 import { routing } from '@/i18n/routing'
+import { SITE_URL } from '@/lib/metadata'
 
 export const metadata: Metadata = {
-  title: 'MECANODE',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: 'MECANODE',
+    template: '%s',
+  },
   description: 'Outils Unreal Engine, galerie de travaux et enseignement — Arnaud Szobad.',
 }
 

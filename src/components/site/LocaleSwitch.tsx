@@ -1,6 +1,7 @@
 'use client'
 
 import { useLocale } from 'next-intl'
+import { useParams } from 'next/navigation'
 import React from 'react'
 
 import { Link, usePathname } from '@/i18n/navigation'
@@ -10,6 +11,7 @@ import { routing } from '@/i18n/routing'
 export function LocaleSwitch({ label }: { label: string }) {
   const active = useLocale()
   const pathname = usePathname()
+  const params = useParams()
 
   return (
     <div
@@ -31,7 +33,8 @@ export function LocaleSwitch({ label }: { label: string }) {
           ) : (
             <Link
               className="transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan"
-              href={pathname}
+              // Le chemin courant peut être une route dynamique : ses paramètres suivent.
+              href={{ pathname, params } as Parameters<typeof Link>[0]["href"]}
               locale={locale}
             >
               {locale.toUpperCase()}

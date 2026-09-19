@@ -11,6 +11,7 @@ import { Pin } from '@/components/ui/Pin'
 import { Link } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'
 import { asMedia, asTag, engineRange, getTool, getToolSlugs, type Locale } from '@/lib/content'
+import { pageMetadata, SITE_URL } from '@/lib/metadata'
 
 type Params = { locale: string; slug: string }
 
@@ -30,10 +31,15 @@ export async function generateMetadata({
 
   if (!tool) return {}
 
-  return {
+  const cover = asMedia(tool.mainImage)
+
+  return pageMetadata({
+    href: { pathname: '/tools/[slug]', params: { slug } },
+    locale: locale as Locale,
     title: `${tool.name} — MECANODE`,
     description: tool.tagline,
-  }
+    image: cover?.url ? { url: SITE_URL + cover.url, alt: cover.alt ?? tool.name } : null,
+  })
 }
 
 export default async function ToolPage({ params }: { params: Promise<Params> }) {

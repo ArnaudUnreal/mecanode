@@ -96,7 +96,7 @@ export function GalleryGrid({
             <li key={entry.id}>
               <Link
                 className="group relative block overflow-hidden rounded-[10px] border border-line bg-panel transition-colors hover:border-[#3C5A6E]"
-                href={`/tools/${entry.toolSlug}`}
+                href={{ pathname: '/tools/[slug]', params: { slug: entry.toolSlug } }}
               >
                 <span className="relative block aspect-video">
                   <Image
