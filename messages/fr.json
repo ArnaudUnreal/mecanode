@@ -2,7 +2,8 @@
   "nav": {
     "tools": "Outils",
     "gallery": "Galerie",
-    "about": "Profil"
+    "about": "Profil",
+    "contact": "Contact"
   },
   "actions": {
     "browseOn": "Voir sur",
@@ -64,5 +65,53 @@
     "supportValue": "Direct, par l'auteur",
     "whatItDoes": "Ce que ça fait",
     "releaseNotes": "Notes de version"
+  },
+  "contact": {
+    "label": "04 — Contact",
+    "title": "Me contacter",
+    "lede": "Une question sur un outil, un projet, un cours. Le message part dans ma boîte, rien n'est stocké sur ce site.",
+    "name": "Prénom et nom",
+    "email": "Courriel",
+    "subject": "Objet",
+    "subjects": {
+      "products": "Produits",
+      "job": "Emploi",
+      "other": "Autre"
+    },
+    "message": "Message",
+    "challenge": "Question anti-robot : combien font {a} + {b} ?",
+    "website": "Laissez ce champ vide",
+    "send": "Envoyer le message",
+    "sending": "Envoi…",
+    "sentTitle": "Message envoyé",
+    "sentText": "Merci. Je réponds moi-même, en général sous deux jours ouvrés.",
+    "errors": {
+      "summary": "Le message n'est pas parti. Vérifiez les champs ci-dessus.",
+      "name": {
+        "length": "Entre 2 et 80 caractères.",
+        "code": "Lettres et espaces uniquement, pas de balises."
+      },
+      "email": {
+        "invalid": "Cette adresse ne semble pas valide."
+      },
+      "subject": {
+        "invalid": "Choisissez un des trois objets."
+      },
+      "message": {
+        "short": "Dix caractères au minimum.",
+        "long": "Ce message est beaucoup trop long.",
+        "code": "Les balises et le code n'ont rien à faire ici.",
+        "links": "Trois liens au maximum."
+      },
+      "challenge": {
+        "wrong": "Mauvaise réponse.",
+        "expired": "La question a expiré, rechargez la page.",
+        "tampered": "La question a été modifiée, rechargez la page.",
+        "tooFast": "Envoi trop rapide pour être humain."
+      },
+      "form": {
+        "send": "L'envoi a échoué. Réessayez dans un instant."
+      }
+    }
   }
 }

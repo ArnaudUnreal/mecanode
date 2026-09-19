@@ -39,7 +39,8 @@ Contraintes fermes :
 - Les types du contenu sont générés par Payload, jamais écrits à la main.
 - Les polices sont servies par le site, jamais appelées chez un tiers.
 - Le lecteur vidéo YouTube ou Vimeo se charge au clic, pas au chargement de la page.
-- Aucune donnée personnelle collectée : pas de formulaire, pas de compte visiteur, pas de cookie de mesure.
+- Un seul formulaire, celui de contact : le message part par courriel, rien n'est stocké en base.
+- Pas de compte visiteur, pas de cookie de mesure, aucune autre donnée personnelle collectée.
 
 ## Modèle de contenu
 

@@ -12,6 +12,7 @@ const links = [
   { href: '/', key: 'tools' },
   { href: '/gallery', key: 'gallery' },
   { href: '/about', key: 'about' },
+  { href: '/contact', key: 'contact' },
 ] as const
 
 export async function Header() {

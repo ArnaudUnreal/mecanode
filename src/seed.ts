@@ -473,7 +473,6 @@ async function seed() {
       elsewhere: [
         { label: 'Fab', url: FAB_STORE },
         { label: 'LinkedIn', url: 'https://www.linkedin.com/in/arnaud-szobad' },
-        { label: 'Contact', url: 'mailto:aszobad@gmail.com' },
       ],
     },
   })

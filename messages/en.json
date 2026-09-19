@@ -2,7 +2,8 @@
   "nav": {
     "tools": "Tools",
     "gallery": "Gallery",
-    "about": "About"
+    "about": "About",
+    "contact": "Contact"
   },
   "actions": {
     "browseOn": "Browse on",
@@ -64,5 +65,53 @@
     "supportValue": "Direct, by the author",
     "whatItDoes": "What it does",
     "releaseNotes": "Release notes"
+  },
+  "contact": {
+    "label": "04 — Contact",
+    "title": "Get in touch",
+    "lede": "A question about a tool, a project, a course. The message lands in my inbox, nothing is stored on this site.",
+    "name": "First and last name",
+    "email": "Email",
+    "subject": "Subject",
+    "subjects": {
+      "products": "Products",
+      "job": "Work",
+      "other": "Other"
+    },
+    "message": "Message",
+    "challenge": "Anti-robot question: how much is {a} + {b}?",
+    "website": "Leave this field empty",
+    "send": "Send the message",
+    "sending": "Sending…",
+    "sentTitle": "Message sent",
+    "sentText": "Thanks. I answer myself, usually within two working days.",
+    "errors": {
+      "summary": "The message was not sent. Check the fields above.",
+      "name": {
+        "length": "Between 2 and 80 characters.",
+        "code": "Letters and spaces only, no markup."
+      },
+      "email": {
+        "invalid": "This address does not look valid."
+      },
+      "subject": {
+        "invalid": "Pick one of the three subjects."
+      },
+      "message": {
+        "short": "At least ten characters.",
+        "long": "This message is far too long.",
+        "code": "Markup and code are not accepted here.",
+        "links": "Three links at most."
+      },
+      "challenge": {
+        "wrong": "Wrong answer.",
+        "expired": "The question expired, reload the page.",
+        "tampered": "The question was altered, reload the page.",
+        "tooFast": "Sent too fast to be human."
+      },
+      "form": {
+        "send": "Sending failed. Try again in a moment."
+      }
+    }
   }
 }

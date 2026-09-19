@@ -1,4 +1,5 @@
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -37,6 +38,23 @@ export default buildConfig({
     defaultLocale: 'en',
     fallback: true,
   },
+  // Sans SMTP configuré, Payload écrit les courriels dans la console : le formulaire
+  // reste testable en développement sans compte d'envoi.
+  email: process.env.SMTP_HOST
+    ? nodemailerAdapter({
+        defaultFromAddress: process.env.SMTP_FROM || 'contact@mecanode.com',
+        defaultFromName: 'Mecanode',
+        transportOptions: {
+          host: process.env.SMTP_HOST,
+          port: Number(process.env.SMTP_PORT || 587),
+          secure: Number(process.env.SMTP_PORT || 587) === 465,
+          auth:
+            process.env.SMTP_USER && process.env.SMTP_PASSWORD
+              ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASSWORD }
+              : undefined,
+        },
+      })
+    : undefined,
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

@@ -55,6 +55,9 @@ export async function Footer() {
             <Link className={linkClass} href="/about">
               {nav('about')}
             </Link>
+            <Link className={linkClass} href="/contact">
+              {nav('contact')}
+            </Link>
           </div>
 
           <div>
