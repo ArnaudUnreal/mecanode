@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation'
 import React from 'react'
 
 import { JsonLd } from '@/components/seo/JsonLd'
+import { Logo } from '@/components/ui/Logo'
 import { asMedia, getPage, getSiteSettings, type Locale } from '@/lib/content'
 import { SITE_URL } from '@/lib/metadata'
 import type { Metadata } from 'next'
@@ -68,10 +69,9 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               src={portrait.url}
             />
           ) : (
+            // Tant qu'aucun portrait n'est téléversé dans heroImage, le logo tient la place.
             <div className="graph-dots flex h-full w-full items-center justify-center">
-              <span className="font-mono text-[11px] tracking-[0.2em] uppercase text-ink-3">
-                {t('portraitMissing')}
-              </span>
+              <Logo className="h-auto w-2/5 opacity-70" />
             </div>
           )}
         </div>
