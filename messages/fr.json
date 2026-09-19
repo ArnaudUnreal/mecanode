@@ -1,5 +1,46 @@
 {
+  "nav": {
+    "tools": "Outils",
+    "gallery": "Galerie",
+    "about": "Profil"
+  },
+  "actions": {
+    "browseOn": "Voir sur",
+    "viewOnFab": "Voir sur Fab",
+    "browseToolset": "Parcourir les outils",
+    "watchReel": "Voir le showreel"
+  },
+  "a11y": {
+    "skipToContent": "Aller au contenu",
+    "mainNav": "Navigation principale",
+    "languageSwitch": "Langue",
+    "menu": "Menu"
+  },
   "home": {
-    "tagline": "Des outils Unreal Engine, éprouvés en production et enseignés en cours."
+    "eyebrow": "Unreal Engine {range}",
+    "lede": "Utilitaires d'éditeur et systèmes de jeu, nés de dix ans de production et d'enseignement. À poser dans le projet, pour livrer plus vite et garder un graphe Blueprint lisible.",
+    "toolsLabel": "Les outils",
+    "toolsTitle": "Des outils qui font la part ingrate",
+    "toolsLede": "Trois outils sur Fab, chacun né d'un problème de production et affûté en cours."
+  },
+  "footer": {
+    "tools": "Outils",
+    "work": "Travaux",
+    "elsewhere": "Ailleurs",
+    "builtBy": "Conçu et réalisé par"
+  },
+  "gallery": {
+    "label": "Travaux choisis",
+    "title": "Galerie",
+    "lede": "Captures, décompositions et extraits, de la production comme des cours."
+  },
+  "about": {
+    "label": "Profil",
+    "title": "Profil et enseignement",
+    "lede": "Dix ans de Blueprint, deux ans de C++, et une salle de classe pour tenir les deux."
+  },
+  "common": {
+    "comingSoon": "Le contenu arrive dans un lot ultérieur.",
+    "demoContent": "Contenu de démonstration, repris des maquettes Node Graph."
   }
 }

@@ -52,3 +52,45 @@
   mask-image: radial-gradient(ellipse 90% 70% at 50% 25%, #000 35%, transparent 100%);
   pointer-events: none;
 }
+
+@layer base {
+  /* Focus visible partout, exigence du budget de qualité. */
+  :focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: rgba(43, 229, 255, 0.24);
+    color: var(--ink);
+  }
+}
+
+/* Angles coupés des cartes et des boutons, repris des maquettes. */
+@utility clip-node {
+  clip-path: polygon(
+    9px 0,
+    100% 0,
+    100% calc(100% - 9px),
+    calc(100% - 9px) 100%,
+    0 100%,
+    0 9px
+  );
+}
+
+@utility clip-node-lg {
+  clip-path: polygon(
+    16px 0,
+    100% 0,
+    100% calc(100% - 16px),
+    calc(100% - 16px) 100%,
+    0 100%,
+    0 16px
+  );
+}
+
+/* Trame de points d'une surface de graphe, plus serrée que le fond de page. */
+@utility graph-dots {
+  background-image: radial-gradient(circle, #1e1830 1px, transparent 1px);
+  background-size: 22px 22px;
+}

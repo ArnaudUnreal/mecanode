@@ -3,3 +3,14 @@ allowBuilds:
   '@swc/core': true
   esbuild: true
   unrs-resolver: true
+# Payload 3.90.1 est sorti le 18/09/2026, trop récent pour la politique d'âge minimal de pnpm.
+# Exclusion nominative, version par version, plutôt que de désactiver la politique.
+minimumReleaseAgeExclude:
+  - '@payloadcms/db-sqlite@3.90.1'
+  - '@payloadcms/drizzle@3.90.1'
+  - '@payloadcms/graphql@3.90.1'
+  - '@payloadcms/next@3.90.1'
+  - '@payloadcms/richtext-lexical@3.90.1'
+  - '@payloadcms/translations@3.90.1'
+  - '@payloadcms/ui@3.90.1'
+  - 'payload@3.90.1'

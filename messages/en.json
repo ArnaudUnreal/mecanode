@@ -1,5 +1,46 @@
 {
+  "nav": {
+    "tools": "Tools",
+    "gallery": "Gallery",
+    "about": "About"
+  },
+  "actions": {
+    "browseOn": "Browse on",
+    "viewOnFab": "View on Fab",
+    "browseToolset": "Browse the toolset",
+    "watchReel": "Watch the reel"
+  },
+  "a11y": {
+    "skipToContent": "Skip to content",
+    "mainNav": "Main navigation",
+    "languageSwitch": "Language",
+    "menu": "Menu"
+  },
   "home": {
-    "tagline": "Unreal Engine tools, built in production and taught in class."
+    "eyebrow": "Unreal Engine {range}",
+    "lede": "Editor utilities and runtime systems built over ten years of production and teaching. Drop them in, ship faster, keep your Blueprint graph readable.",
+    "toolsLabel": "The toolset",
+    "toolsTitle": "Tools that do the tedious part",
+    "toolsLede": "Three tools on Fab, each one born from a production problem and sharpened in class."
+  },
+  "footer": {
+    "tools": "Tools",
+    "work": "Work",
+    "elsewhere": "Elsewhere",
+    "builtBy": "Designed and built by"
+  },
+  "gallery": {
+    "label": "Selected work",
+    "title": "Gallery",
+    "lede": "Captures, breakdowns and reels from production and teaching."
+  },
+  "about": {
+    "label": "Profile",
+    "title": "About and teaching",
+    "lede": "Ten years of Blueprint, two of C++, and a classroom to keep both honest."
+  },
+  "common": {
+    "comingSoon": "Content lands in a later batch.",
+    "demoContent": "Demonstration content, taken from the Node Graph mockups."
   }
 }
