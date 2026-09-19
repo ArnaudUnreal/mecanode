@@ -8,7 +8,10 @@
     "browseOn": "Voir sur",
     "viewOnFab": "Voir sur Fab",
     "browseToolset": "Parcourir les outils",
-    "watchReel": "Voir le showreel"
+    "seeTools": "Voir les outils",
+    "allTools": "Tous les outils sur Fab",
+    "openGallery": "Ouvrir la galerie",
+    "openStore": "Ouvrir la boutique Mecanode"
   },
   "a11y": {
     "skipToContent": "Aller au contenu",
@@ -19,9 +22,12 @@
   "home": {
     "eyebrow": "Unreal Engine {range}",
     "lede": "Utilitaires d'éditeur et systèmes de jeu, nés de dix ans de production et d'enseignement. À poser dans le projet, pour livrer plus vite et garder un graphe Blueprint lisible.",
-    "toolsLabel": "Les outils",
-    "toolsTitle": "Des outils qui font la part ingrate",
-    "toolsLede": "Trois outils sur Fab, chacun né d'un problème de production et affûté en cours."
+    "toolsLabel": "01 — Outils",
+    "toolsTitle": "En vente sur Fab",
+    "toolsLede": "{count, plural, one {Un outil} other {# outils}} sur Fab, chacun né d'un problème rencontré en production et affûté en cours.",
+    "galleryLabel": "02 — Galerie",
+    "galleryTitle": "Le travail dans la viewport",
+    "ctaLabel": "03 — Fab"
   },
   "footer": {
     "tools": "Outils",

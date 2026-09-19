@@ -573,6 +573,18 @@ export interface SiteSetting {
   id: number;
   siteName: string;
   tagline?: string | null;
+  /**
+   * Wrap the cyan part in asterisks, like *the tedious part*.
+   */
+  heroTitle?: string | null;
+  heroMeta?:
+    | {
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  ctaTitle?: string | null;
+  ctaLede?: string | null;
   lede?: string | null;
   footerNote?: string | null;
   fabUrl: string;
@@ -605,6 +617,15 @@ export interface SiteSetting {
 export interface SiteSettingsSelect<T extends boolean = true> {
   siteName?: T;
   tagline?: T;
+  heroTitle?: T;
+  heroMeta?:
+    | T
+    | {
+        label?: T;
+        id?: T;
+      };
+  ctaTitle?: T;
+  ctaLede?: T;
   lede?: T;
   footerNote?: T;
   fabUrl?: T;

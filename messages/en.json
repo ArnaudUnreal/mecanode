@@ -8,7 +8,10 @@
     "browseOn": "Browse on",
     "viewOnFab": "View on Fab",
     "browseToolset": "Browse the toolset",
-    "watchReel": "Watch the reel"
+    "seeTools": "See the tools",
+    "allTools": "All tools on Fab",
+    "openGallery": "Open the gallery",
+    "openStore": "Open the Mecanode store"
   },
   "a11y": {
     "skipToContent": "Skip to content",
@@ -19,9 +22,12 @@
   "home": {
     "eyebrow": "Unreal Engine {range}",
     "lede": "Editor utilities and runtime systems built over ten years of production and teaching. Drop them in, ship faster, keep your Blueprint graph readable.",
-    "toolsLabel": "The toolset",
-    "toolsTitle": "Tools that do the tedious part",
-    "toolsLede": "Three tools on Fab, each one born from a production problem and sharpened in class."
+    "toolsLabel": "01 — Toolset",
+    "toolsTitle": "Shipping on Fab",
+    "toolsLede": "{count, plural, one {One tool} other {# tools}} on Fab, each one born from a problem met in production and sharpened in class.",
+    "galleryLabel": "02 — Gallery",
+    "galleryTitle": "Work in the viewport",
+    "ctaLabel": "03 — Fab"
   },
   "footer": {
     "tools": "Tools",

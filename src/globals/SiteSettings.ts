@@ -25,6 +25,45 @@ export const SiteSettings: GlobalConfig = {
       label: { en: 'Tagline', fr: 'Accroche' },
     },
     {
+      name: 'heroTitle',
+      type: 'textarea',
+      localized: true,
+      label: { en: 'Hero title', fr: 'Titre du héros' },
+      admin: {
+        description: {
+          en: 'Wrap the cyan part in asterisks, like *the tedious part*.',
+          fr: 'Encadrer la partie cyan par des astérisques, comme *la part ingrate*.',
+        },
+      },
+    },
+    {
+      name: 'heroMeta',
+      type: 'array',
+      maxRows: 4,
+      label: { en: 'Hero credentials', fr: 'Mentions du héros' },
+      fields: [
+        {
+          name: 'label',
+          type: 'text',
+          required: true,
+          localized: true,
+          label: { en: 'Label', fr: 'Libellé' },
+        },
+      ],
+    },
+    {
+      name: 'ctaTitle',
+      type: 'text',
+      localized: true,
+      label: { en: 'Closing call title', fr: 'Titre de l’appel final' },
+    },
+    {
+      name: 'ctaLede',
+      type: 'textarea',
+      localized: true,
+      label: { en: 'Closing call text', fr: 'Texte de l’appel final' },
+    },
+    {
       name: 'lede',
       type: 'textarea',
       localized: true,

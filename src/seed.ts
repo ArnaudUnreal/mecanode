@@ -1,11 +1,30 @@
 /**
- * Jeu de données d'exemple, exécuté par `pnpm seed`.
- * Reprend le contenu de démonstration des maquettes, en anglais et en français.
+ * Jeu de données réel, exécuté par `pnpm seed`.
+ * Source : les cinq fiches Fab listées dans `04-Assets/FabListing.md`.
+ * Les textes anglais viennent des fiches Fab, les textes français sont leur traduction.
+ * Les visuels sont ceux des fiches, téléchargés dans `04-Assets/fab/<slug>/`.
  * Le script est idempotent : il vide les collections de contenu avant d'écrire.
  */
 import config from '@payload-config'
+import fs from 'fs'
+import path from 'path'
 import { getPayload } from 'payload'
-import sharp from 'sharp'
+
+const ASSETS = 'D:/Mecanode/04-Assets/fab'
+
+type EngineVersion = '5.0' | '5.1' | '5.2' | '5.3' | '5.4' | '5.5' | '5.6' | '5.7'
+
+/**
+ * Versions d'Unreal compatibles, à confirmer produit par produit :
+ * l'API de Fab ne les expose pas.
+ */
+const ENGINE_VERSIONS: Record<string, EngineVersion[]> = {
+  'chaos-batch-fracture': ['5.6', '5.7'],
+  'dice-system': ['5.0', '5.1', '5.2', '5.3', '5.4', '5.5', '5.6', '5.7'],
+  'histogram-chart': ['5.0', '5.1', '5.2', '5.3', '5.4', '5.5', '5.6', '5.7'],
+  'pie-chart': ['5.0', '5.1', '5.2', '5.3', '5.4', '5.5', '5.6', '5.7'],
+  'curve-chart-blueprint': ['5.0', '5.1', '5.2', '5.3', '5.4', '5.5', '5.6', '5.7'],
+}
 
 const richText = (paragraphs: string[]) => ({
   root: {
@@ -27,164 +46,183 @@ const richText = (paragraphs: string[]) => ({
   },
 })
 
-/** Visuel de remplacement : deux nœuds Blueprint reliés par un fil, aux couleurs du thème. */
-async function nodeArt(wire: string, head: string, label: string): Promise<Buffer> {
-  const dots = Array.from({ length: 15 }, (_, row) =>
-    Array.from(
-      { length: 27 },
-      (_, col) => '<circle cx="' + (40 + col * 58) + '" cy="' + (40 + row * 58) + '" r="2"/>',
-    ).join(''),
-  ).join('')
-
-  const svg = [
-    '<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">',
-    '<rect width="1600" height="900" fill="#0B0716"/>',
-    '<g fill="#1E1830">' + dots + '</g>',
-    '<path d="M520 330 C 700 330, 660 560, 840 560" stroke="' +
-      wire +
-      '" stroke-width="9" fill="none" opacity="0.9"/>',
-    '<rect x="180" y="250" width="340" height="180" rx="16" fill="#171227" stroke="#2A2340" stroke-width="3"/>',
-    '<rect x="180" y="250" width="340" height="52" rx="16" fill="' + head + '"/>',
-    '<rect x="180" y="288" width="340" height="14" fill="#171227"/>',
-    '<circle cx="520" cy="330" r="14" fill="' + wire + '"/>',
-    '<rect x="840" y="470" width="420" height="220" rx="16" fill="#171227" stroke="#33294A" stroke-width="3"/>',
-    '<rect x="840" y="470" width="420" height="52" rx="16" fill="' + head + '" opacity="0.75"/>',
-    '<rect x="840" y="508" width="420" height="14" fill="#171227"/>',
-    '<circle cx="840" cy="560" r="14" fill="' + wire + '"/>',
-    '<text x="180" y="800" fill="#6C6090" font-family="monospace" font-size="34" letter-spacing="6">' +
-      label +
-      '</text>',
-    '</svg>',
-  ].join('')
-
-  return sharp(Buffer.from(svg)).png().toBuffer()
-}
-
-type EngineVersion = '5.0' | '5.1' | '5.2' | '5.3' | '5.4' | '5.5' | '5.6' | '5.7'
-
 const toolSeeds = [
   {
-    name: 'Grid Weaver',
-    slug: 'grid-weaver',
-    accent: { wire: '#2BE5FF', head: '#1F6E8C' },
-    category: 'level-design',
+    name: 'ChaosBatchFracture',
+    slug: 'chaos-batch-fracture',
+    assetDir: 'chaosbatchfracture',
+    category: 'physics',
+    tags: ['editor', 'code-plugin', 'automation'],
+    fabUrl: 'https://www.fab.com/listings/85075872-2ac1-474f-89d3-cce82837ec83',
+    releaseDate: '2026-05-27',
+    featured: true,
     tagline: {
-      en: 'Procedural grids that stay art-directable.',
-      fr: 'Des grilles procédurales qui restent dirigeables.',
+      en: 'Batch-fracture Static Meshes into runtime-ready Geometry Collections.',
+      fr: 'Fracture par lots des Static Meshes en Geometry Collections prêtes pour le runtime.',
     },
     description: {
       en: [
-        'Grid Weaver spawns, snaps and reshapes grids of actors from a single Blueprint node, without throwing away hand placement.',
-        'Every instance keeps its own overrides, so a level artist can nudge one tile and regenerate the rest.',
+        'ChaosBatchFracture converts several Static Meshes into fractured Chaos Geometry Collections in a single batch. Select your meshes, pick a preset, and the plugin generates organised GC_ assets on its own.',
+        'It also prepares those collections for runtime: tiny fragments are fixed, the collection is validated, convex collision hulls and Chaos simulation data are generated, render data is rebuilt.',
+        'The workflow is built for production: presets for fast preview or runtime-safe generation, safe handling of existing assets, progress and cancel support, automatic saving, and safety limits that keep a heavy fracture job from running away.',
       ],
       fr: [
-        "Grid Weaver génère, aligne et remodèle des grilles d'Actors depuis un seul nœud Blueprint, sans jeter le placement manuel.",
-        'Chaque instance garde ses propres surcharges : le level artist déplace une tuile et régénère le reste.',
+        'ChaosBatchFracture convertit plusieurs Static Meshes en Geometry Collections Chaos fracturées, en un seul lot. Tu sélectionnes tes meshes, tu choisis un préréglage, le plugin génère seul des assets GC_ rangés.',
+        'Il prépare aussi ces collections pour le runtime : les fragments minuscules sont corrigés, la collection est validée, les enveloppes de collision convexes et les données de simulation Chaos sont générées, les données de rendu reconstruites.',
+        "Le flux est pensé pour la production : préréglages d'aperçu rapide ou de génération sûre en runtime, respect des assets existants, avancement et annulation, sauvegarde automatique, et des garde-fous qui empêchent un travail de fracture de partir en vrille.",
       ],
     },
-    engineVersions: ['5.3', '5.4', '5.5', '5.6', '5.7'] as EngineVersion[],
-    releaseDate: '2025-02-11',
-    featured: true,
     releaseNotes: [
       {
-        version: '1.3.0',
-        date: '2026-06-02',
-        changes: {
-          en: 'Radial layouts, per-instance seeds, Unreal 5.7 support.',
-          fr: "Dispositions radiales, graines par instance, prise en charge d'Unreal 5.7.",
-        },
-      },
-      {
-        version: '1.2.0',
-        date: '2026-01-19',
-        changes: {
-          en: 'Collision presets exposed on the node, faster rebuild on large grids.',
-          fr: 'Préréglages de collision exposés sur le nœud, reconstruction plus rapide sur les grandes grilles.',
-        },
+        version: '1.0',
+        date: '2026-05-27',
+        changes: { en: 'Initial release.', fr: 'Première version.' },
       },
     ],
   },
   {
-    name: 'Graph Tidy',
-    slug: 'graph-tidy',
-    accent: { wire: '#7C5CFF', head: '#3B2A7A' },
-    category: 'editor-utility',
+    name: 'Dice System',
+    slug: 'dice-system',
+    assetDir: 'dice-system',
+    category: 'gameplay-features',
+    tags: ['blueprint', 'tabletop'],
+    fabUrl: 'https://www.fab.com/listings/232b0035-8d2f-4b4b-abf1-156afb30dfa3',
+    releaseDate: '2022-07-24',
+    featured: true,
     tagline: {
-      en: 'One shortcut, a readable Event Graph.',
-      fr: 'Un raccourci, un Event Graph lisible.',
+      en: 'Physics-driven dice rolling, from D4 to D100, in pure Blueprint.',
+      fr: 'Des lancers de dés physiques, du D4 au D100, en Blueprint pur.',
     },
     description: {
       en: [
-        'Graph Tidy aligns nodes, straightens wires and groups reroutes across a whole Blueprint, in one pass.',
-        'It never moves a comment box, so the structure you drew by hand survives the cleanup.',
+        'A dice rolling system, fully physics-based and built entirely in nodes: not a line of C++ was harmed during development.',
+        'Every die used in role-playing games is there, from D4 to D100, in any number, with the total computed automatically whatever sits on the table, and each die readable on its own. Display those values or keep them hidden, as you like.',
+        'And since a die sometimes lands broken, you can remove it and roll it again.',
       ],
       fr: [
-        "Graph Tidy aligne les nœuds, redresse les fils et regroupe les reroutes d'un Blueprint entier, en une passe.",
-        'Il ne déplace jamais une boîte de commentaire : la structure dessinée à la main survit au rangement.',
+        "Un système de lancer de dés entièrement physique, construit en nœuds de bout en bout : pas une ligne de C++ n'a été maltraitée.",
+        'Tous les dés du jeu de rôle sont là, du D4 au D100, en nombre illimité, avec le total calculé automatiquement quel que soit ce qui traîne sur la table, et la valeur de chaque dé lisible séparément. Ces valeurs sont affichées ou masquées, au choix.',
+        'Et comme il arrive qu\u2019un dé tombe de travers, tu peux le retirer et le relancer.',
       ],
     },
-    engineVersions: ['5.4', '5.5', '5.6', '5.7'] as EngineVersion[],
-    releaseDate: '2025-09-30',
-    featured: true,
     releaseNotes: [
       {
-        version: '2.0.1',
-        date: '2026-05-14',
-        changes: {
-          en: 'Undo now restores the exact previous layout.',
-          fr: "L'annulation restitue la disposition précédente au pixel près.",
-        },
+        version: '1.0',
+        date: '2022-07-24',
+        changes: { en: 'Initial release.', fr: 'Première version.' },
       },
     ],
   },
   {
-    name: 'Signal Bus',
-    slug: 'signal-bus',
-    accent: { wire: '#FF7A2F', head: '#8C4A1C' },
-    category: 'gameplay-framework',
-    tagline: {
-      en: 'Events without the spaghetti.',
-      fr: 'Des événements sans les spaghettis.',
-    },
-    description: {
-      en: [
-        'A typed message bus for Blueprint and C++, with a live inspector to watch traffic while you play.',
-        'Channels are assets, so designers subscribe without touching a header file.',
-      ],
-      fr: [
-        'Un bus de messages typé pour Blueprint et C++, avec un inspecteur pour suivre le trafic en jeu.',
-        "Les canaux sont des assets : un designer s'abonne sans ouvrir un fichier d'en-tête.",
-      ],
-    },
-    engineVersions: ['5.3', '5.4', '5.5', '5.6', '5.7'] as EngineVersion[],
-    releaseDate: '2024-11-05',
+    name: 'Histogram Chart',
+    slug: 'histogram-chart',
+    assetDir: 'histogram-chart',
+    category: 'gameplay-features',
+    tags: ['blueprint', 'chart'],
+    fabUrl: 'https://www.fab.com/listings/8f25c203-c9cf-422b-8e89-65e8ad35e95b',
+    releaseDate: '2021-12-17',
     featured: false,
+    tagline: {
+      en: 'A full 3D histogram, driven by two Blueprint functions.',
+      fr: 'Un histogramme 3D complet, piloté par deux fonctions Blueprint.',
+    },
+    description: {
+      en: [
+        'This Blueprint gives you the mechanism for a complete 3D histogram chart. Write your data, set your parameters, then call two functions to show or hide the whole chart.',
+        'Materials, font size, axis scales: more than fifty options and parameters let you shape every element exactly as you want it.',
+      ],
+      fr: [
+        'Ce Blueprint fournit tout le mécanisme d\u2019un histogramme 3D complet. Tu écris tes données, tu règles tes paramètres, puis deux fonctions suffisent à afficher ou masquer le graphique entier.',
+        'Matériaux, corps de texte, échelles des axes : plus de cinquante options et paramètres pour façonner chaque élément exactement comme tu le veux.',
+      ],
+    },
     releaseNotes: [
       {
-        version: '1.1.0',
-        date: '2026-03-08',
-        changes: {
-          en: 'Replicated channels, inspector filters.',
-          fr: "Canaux répliqués, filtres dans l'inspecteur.",
-        },
+        version: '1.0',
+        date: '2021-12-17',
+        changes: { en: 'Initial release.', fr: 'Première version.' },
+      },
+    ],
+  },
+  {
+    name: 'Pie Chart',
+    slug: 'pie-chart',
+    assetDir: 'pie-chart',
+    category: 'gameplay-features',
+    tags: ['blueprint', 'chart'],
+    fabUrl: 'https://www.fab.com/listings/23875c1c-d3cc-4dbd-9aec-70444017b9b0',
+    releaseDate: '2021-12-16',
+    featured: false,
+    tagline: {
+      en: 'A full 3D pie chart, driven by two Blueprint functions.',
+      fr: 'Un camembert 3D complet, piloté par deux fonctions Blueprint.',
+    },
+    description: {
+      en: [
+        'This Blueprint gives you the mechanism for a complete 3D pie chart. Write your data, set your parameters, then call two functions to show or hide the whole chart.',
+        'Materials, font size, labels: a long list of options and parameters lets you shape every element exactly as you want it.',
+      ],
+      fr: [
+        'Ce Blueprint fournit tout le mécanisme d\u2019un camembert 3D complet. Tu écris tes données, tu règles tes paramètres, puis deux fonctions suffisent à afficher ou masquer le graphique entier.',
+        'Matériaux, corps de texte, étiquettes : une longue liste d\u2019options et de paramètres pour façonner chaque élément exactement comme tu le veux.',
+      ],
+    },
+    releaseNotes: [
+      {
+        version: '1.0',
+        date: '2021-12-16',
+        changes: { en: 'Initial release.', fr: 'Première version.' },
+      },
+    ],
+  },
+  {
+    name: 'Curve Chart Blueprint',
+    slug: 'curve-chart-blueprint',
+    assetDir: 'curve-chart-blueprint',
+    category: 'gameplay-features',
+    tags: ['blueprint', 'chart'],
+    fabUrl: 'https://www.fab.com/listings/a8ad035f-4737-475e-8ca9-0e6edc351243',
+    releaseDate: '2021-12-15',
+    featured: false,
+    tagline: {
+      en: 'A full 3D curve chart, driven by two Blueprint functions.',
+      fr: 'Un graphique de courbes 3D complet, piloté par deux fonctions Blueprint.',
+    },
+    description: {
+      en: [
+        'This Blueprint gives you the mechanism for a complete 3D curve chart. Write your data, set your parameters, then call two functions to show or hide the whole chart.',
+        'Materials, font size, axis scales: more than fifty options and parameters let you shape every element exactly as you want it.',
+      ],
+      fr: [
+        'Ce Blueprint fournit tout le mécanisme d\u2019un graphique de courbes 3D complet. Tu écris tes données, tu règles tes paramètres, puis deux fonctions suffisent à afficher ou masquer le graphique entier.',
+        'Matériaux, corps de texte, échelles des axes : plus de cinquante options et paramètres pour façonner chaque élément exactement comme tu le veux.',
+      ],
+    },
+    releaseNotes: [
+      {
+        version: '1.0',
+        date: '2021-12-15',
+        changes: { en: 'Initial release.', fr: 'Première version.' },
       },
     ],
   },
 ]
 
 const categorySeeds = [
-  { slug: 'level-design', en: 'Level design', fr: 'Level design' },
-  { slug: 'editor-utility', en: 'Editor utility', fr: "Utilitaire d'éditeur" },
-  { slug: 'gameplay-framework', en: 'Gameplay framework', fr: 'Cadre de gameplay' },
+  { slug: 'physics', en: 'Physics', fr: 'Physique' },
+  { slug: 'gameplay-features', en: 'Gameplay features', fr: 'Fonctionnalités de jeu' },
 ]
 
 const tagSeeds = [
   { slug: 'blueprint', en: 'Blueprint', fr: 'Blueprint' },
-  { slug: 'cpp', en: 'C++', fr: 'C++' },
-  { slug: 'teaching', en: 'Teaching', fr: 'Enseignement' },
+  { slug: 'code-plugin', en: 'C++ plugin', fr: 'Plugin C++' },
+  { slug: 'editor', en: 'Editor tool', fr: "Outil d'éditeur" },
+  { slug: 'chart', en: 'Data visualisation', fr: 'Visualisation de données' },
+  { slug: 'tabletop', en: 'Tabletop', fr: 'Jeu de table' },
+  { slug: 'automation', en: 'Automation', fr: 'Automatisation' },
 ]
 
-const FAB_URL = 'https://www.fab.com/sellers/Mecanode'
+const FAB_STORE = 'https://www.fab.com/sellers/Mecanode'
 
 async function seed() {
   const payload = await getPayload({ config })
@@ -228,25 +266,38 @@ async function seed() {
   payload.logger.info('Étiquettes créées.')
 
   for (const tool of toolSeeds) {
-    const cover = await nodeArt(tool.accent.wire, tool.accent.head, tool.name.toUpperCase())
+    const dir = path.join(ASSETS, tool.assetDir)
+    const files = fs.existsSync(dir)
+      ? fs
+          .readdirSync(dir)
+          .filter((file) => /\.(jpg|jpeg|png|webp)$/i.test(file))
+          .sort()
+      : []
 
-    const media = await payload.create({
-      collection: 'media',
-      locale: 'en',
-      data: { alt: tool.name + ' node graph preview' },
-      file: {
-        data: cover,
-        mimetype: 'image/png',
-        name: tool.slug + '-cover.png',
-        size: cover.length,
-      },
-    })
-    await payload.update({
-      collection: 'media',
-      id: media.id,
-      locale: 'fr',
-      data: { alt: 'Aperçu du graphe de nœuds de ' + tool.name },
-    })
+    if (files.length === 0) {
+      payload.logger.warn(`Aucun visuel pour ${tool.name}, dossier ${dir}`)
+      continue
+    }
+
+    const mediaIds: number[] = []
+    for (const [index, file] of files.entries()) {
+      const created = await payload.create({
+        collection: 'media',
+        locale: 'en',
+        filePath: path.join(dir, file),
+        data: {
+          alt: `${tool.name} — screenshot ${index + 1}`,
+          credit: 'Mecanode',
+        },
+      })
+      await payload.update({
+        collection: 'media',
+        id: created.id,
+        locale: 'fr',
+        data: { alt: `${tool.name} — capture ${index + 1}` },
+      })
+      mediaIds.push(created.id)
+    }
 
     const created = await payload.create({
       collection: 'tools',
@@ -256,11 +307,12 @@ async function seed() {
         slug: tool.slug,
         tagline: tool.tagline.en,
         description: richText(tool.description.en),
-        mainImage: media.id,
-        engineVersions: tool.engineVersions,
+        mainImage: mediaIds[0],
+        gallery: mediaIds.slice(1),
+        engineVersions: ENGINE_VERSIONS[tool.slug],
         category: categories[tool.category],
-        tags: [tags.blueprint, tags.cpp],
-        fabUrl: FAB_URL,
+        tags: tool.tags.map((slug) => tags[slug]),
+        fabUrl: tool.fabUrl,
         releaseDate: tool.releaseDate,
         featured: tool.featured,
         releaseNotes: tool.releaseNotes.map((note) => ({
@@ -287,8 +339,9 @@ async function seed() {
         _status: 'published',
       },
     })
+
+    payload.logger.info(`${tool.name} : ${files.length} visuels importés.`)
   }
-  payload.logger.info('Outils créés.')
 
   const about = await payload.create({
     collection: 'pages',
@@ -298,8 +351,8 @@ async function seed() {
       slug: 'about',
       lede: 'Ten years of Blueprint, two of C++, and a classroom to keep both honest.',
       content: richText([
-        'I build Unreal Engine tools for production teams and teach the engine to students who will use them.',
-        'Everything sold on Fab started as a problem on a real project, then got sharpened by twenty students asking why it works that way.',
+        'I build Unreal Engine tools for production teams and teach the engine to the students who will use them.',
+        'Everything on Fab started as a problem on a real project, then got sharpened by a room full of students asking why it works that way.',
       ]),
       _status: 'published',
     },
@@ -313,7 +366,7 @@ async function seed() {
       lede: 'Dix ans de Blueprint, deux ans de C++, et une salle de classe pour tenir les deux.',
       content: richText([
         "Je construis des outils Unreal Engine pour des équipes de production, et j'enseigne le moteur à ceux qui les utiliseront.",
-        "Tout ce qui est vendu sur Fab est né d'un problème sur un vrai projet, puis affûté par vingt étudiants qui demandent pourquoi ça marche comme ça.",
+        "Tout ce qui est sur Fab est né d'un problème sur un vrai projet, puis affûté par une salle d'étudiants qui demandent pourquoi ça marche comme ça.",
       ]),
       _status: 'published',
     },
@@ -326,20 +379,29 @@ async function seed() {
     data: {
       siteName: 'MECANODE',
       tagline: 'Unreal Engine tools, built in production and taught in class.',
-      lede: 'Editor utilities and runtime systems built over ten years of production and teaching. Drop them in, ship faster, keep your Blueprint graph readable.',
+      heroTitle: 'Tools that do\nthe *tedious part*\nof Unreal.',
+      heroMeta: [
+        { label: 'Blueprint and C++' },
+        { label: 'Editor and runtime' },
+        { label: 'Sold on Fab' },
+      ],
+      ctaTitle: 'Everything is on Fab.',
+      ctaLede:
+        'One purchase, lifetime updates, and answers written by the person who wrote the code.',
+      lede: 'Editor plugins and Blueprint systems built over ten years of production and teaching. Drop them in, ship faster, keep your graph readable.',
       footerNote: 'Unreal Engine tools, built in production and tested in classrooms.',
-      fabUrl: FAB_URL,
-      engineRange: '5.3 → 5.7',
+      fabUrl: FAB_STORE,
+      engineRange: '5.0 → 5.7',
       stats: [
         { value: '10', label: 'years of Blueprint', highlight: false },
         { value: '2', label: 'years of C++', highlight: true },
-        { value: '5.3 → 5.7', label: 'engine versions', highlight: false },
-        { value: '3', label: 'tools on Fab', highlight: false },
+        { value: '5.0 → 5.7', label: 'engine versions', highlight: false },
+        { value: '5', label: 'tools on Fab', highlight: false },
       ],
       elsewhere: [
+        { label: 'Fab', url: FAB_STORE },
         { label: 'YouTube', url: 'https://www.youtube.com/' },
         { label: 'LinkedIn', url: 'https://www.linkedin.com/' },
-        { label: 'Contact', url: 'mailto:contact@mecanode.dev' },
       ],
     },
   })
@@ -349,13 +411,22 @@ async function seed() {
     locale: 'fr',
     data: {
       tagline: 'Des outils Unreal Engine, éprouvés en production et enseignés en cours.',
-      lede: "Utilitaires d'éditeur et systèmes de jeu, nés de dix ans de production et d'enseignement. À poser dans le projet, pour livrer plus vite et garder un graphe Blueprint lisible.",
+      heroTitle: 'Des outils qui font\nla *part ingrate*\nd’Unreal.',
+      heroMeta: [
+        { label: 'Blueprint et C++' },
+        { label: 'Éditeur et runtime' },
+        { label: 'Vendus sur Fab' },
+      ],
+      ctaTitle: 'Tout est sur Fab.',
+      ctaLede:
+        'Un achat, des mises à jour à vie, et des réponses écrites par celui qui a écrit le code.',
+      lede: "Plugins d'éditeur et systèmes Blueprint, nés de dix ans de production et d'enseignement. À poser dans le projet, pour livrer plus vite et garder un graphe lisible.",
       footerNote: 'Des outils Unreal Engine, éprouvés en production et essayés en cours.',
       stats: [
         { value: '10', label: 'ans de Blueprint', highlight: false },
         { value: '2', label: 'ans de C++', highlight: true },
-        { value: '5.3 → 5.7', label: "versions d'Unreal", highlight: false },
-        { value: '3', label: 'outils sur Fab', highlight: false },
+        { value: '5.0 → 5.7', label: "versions d'Unreal", highlight: false },
+        { value: '5', label: 'outils sur Fab', highlight: false },
       ],
     },
   })
