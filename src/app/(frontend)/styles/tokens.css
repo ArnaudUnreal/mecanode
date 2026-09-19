@@ -1,0 +1,28 @@
+/* Mecanode — jetons de design, direction Node Graph.
+   Source de vérité : 02-Maquettes/node-graph/theme.css
+   À porter dans le thème Tailwind en gardant ces noms de variables. */
+:root{
+  /* fonds et surfaces — violet sombre */
+  --bg:#0B0716;
+  --bg-2:#120C22;
+  --panel:#191030;
+  --panel-2:#20163B;
+  --line:#33224F;
+  --line-soft:#281A40;
+
+  /* textes */
+  --ink:#EAE7F4;
+  --ink-2:#A197C0;
+  --ink-3:#6C6090;
+
+  /* accents */
+  --cyan:#2BE5FF;        /* identité, liens actifs, graphe */
+  --cyan-dim:#1391A6;    /* étiquettes de section */
+  --orange:#FF7A2F;      /* réservé aux actions vers Fab */
+  --violet:#6D4AEF;      /* contenus Blueprint, teinte de surface */
+  --violet-soft:#A594FF; /* petites étiquettes sur fond sombre */
+
+  /* mesures */
+  --radius:14px;
+  --maxw:1240px;
+}

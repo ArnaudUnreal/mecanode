@@ -1,0 +1,54 @@
+@import 'tailwindcss';
+@import './styles/tokens.css';
+
+/* Les jetons de tokens.css gardent leurs noms ; le thème Tailwind les référence
+   sans les recopier, grâce à `@theme inline`. */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+
+  --color-cyan: var(--cyan);
+  --color-cyan-dim: var(--cyan-dim);
+  --color-orange: var(--orange);
+  --color-violet: var(--violet);
+  --color-violet-soft: var(--violet-soft);
+
+  --radius-node: var(--radius);
+  --container-node: var(--maxw);
+
+  --font-sans: 'Inter Variable', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    background: var(--bg);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+}
+
+/* Grille de points en filigrane, reprise de 02-Maquettes/node-graph/theme.css */
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, #2e2050 1px, transparent 1px);
+  background-size: 26px 26px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 25%, #000 35%, transparent 100%);
+  pointer-events: none;
+}
