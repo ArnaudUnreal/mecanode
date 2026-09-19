@@ -276,12 +276,16 @@ async function seed() {
 
   for (const tool of toolSeeds) {
     const dir = path.join(ASSETS, tool.assetDir)
-    const files = fs.existsSync(dir)
+    const tous = fs.existsSync(dir)
       ? fs
           .readdirSync(dir)
           .filter((file) => /\.(jpg|jpeg|png|webp)$/i.test(file))
           .sort()
       : []
+
+    // L'affiche de la vidéo, tirée de la miniature YouTube, n'entre pas dans la galerie.
+    const posterFile = tous.find((file) => /-video\.(jpg|jpeg|png|webp)$/i.test(file))
+    const files = tous.filter((file) => file !== posterFile)
 
     if (files.length === 0) {
       payload.logger.warn(`Aucun visuel pour ${tool.name}, dossier ${dir}`)
@@ -308,6 +312,23 @@ async function seed() {
       mediaIds.push(created.id)
     }
 
+    let posterId: number | undefined
+    if (posterFile) {
+      const poster = await payload.create({
+        collection: 'media',
+        locale: 'en',
+        filePath: path.join(dir, posterFile),
+        data: { alt: tool.name + ' — video poster', credit: 'Mecanode' },
+      })
+      await payload.update({
+        collection: 'media',
+        id: poster.id,
+        locale: 'fr',
+        data: { alt: 'Affiche de la vidéo de ' + tool.name },
+      })
+      posterId = poster.id
+    }
+
     const created = await payload.create({
       collection: 'tools',
       locale: 'en',
@@ -323,6 +344,7 @@ async function seed() {
         tags: tool.tags.map((slug) => tags[slug]),
         fabUrl: tool.fabUrl,
         videoUrl: 'videoUrl' in tool ? tool.videoUrl : undefined,
+        videoPoster: posterId,
         releaseDate: tool.releaseDate,
         featured: tool.featured,
         releaseNotes: tool.releaseNotes.map((note) => ({

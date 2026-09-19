@@ -46,7 +46,9 @@
     "all": "Tout",
     "count": "{count, plural, one {# visuel} other {# visuels}}",
     "empty": "Aucun visuel ne correspond à ce filtre.",
-    "reset": "Tout afficher"
+    "reset": "Tout afficher",
+    "videos": "Vidéos",
+    "video": "vidéo"
   },
   "about": {
     "label": "Profil",

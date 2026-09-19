@@ -156,6 +156,10 @@ export interface Tool {
   mainImage: number | Media;
   gallery?: (number | Media)[] | null;
   /**
+   * Shown before the player loads. Left empty, the main image is used.
+   */
+  videoPoster?: (number | null) | Media;
+  /**
    * YouTube or Vimeo. The player loads on click, never on page load.
    */
   videoUrl?: string | null;
@@ -428,6 +432,7 @@ export interface ToolsSelect<T extends boolean = true> {
   description?: T;
   mainImage?: T;
   gallery?: T;
+  videoPoster?: T;
   videoUrl?: T;
   engineVersions?: T;
   category?: T;

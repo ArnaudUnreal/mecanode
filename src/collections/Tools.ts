@@ -96,6 +96,18 @@ export const Tools: CollectionConfig = {
               label: { en: 'Gallery', fr: 'Galerie' },
             },
             {
+              name: 'videoPoster',
+              type: 'upload',
+              relationTo: 'media',
+              label: { en: 'Video poster', fr: 'Affiche de la vidéo' },
+              admin: {
+                description: {
+                  en: 'Shown before the player loads. Left empty, the main image is used.',
+                  fr: "Affichée avant le chargement du lecteur. Laissée vide, le visuel principal sert d'affiche.",
+                },
+              },
+            },
+            {
               name: 'videoUrl',
               type: 'text',
               label: { en: 'Video URL', fr: 'URL de vidéo' },

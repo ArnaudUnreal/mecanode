@@ -46,7 +46,9 @@
     "all": "All",
     "count": "{count, plural, one {# image} other {# images}}",
     "empty": "Nothing matches this filter yet.",
-    "reset": "Show everything"
+    "reset": "Show everything",
+    "videos": "Videos",
+    "video": "video"
   },
   "about": {
     "label": "Profile",

@@ -137,6 +137,8 @@ export async function getToolSlugs(): Promise<string[]> {
 
 export type GalleryEntry = {
   id: number
+  kind: 'image' | 'video'
+  videoUrl?: string
   url: string
   alt: string
   width: number | null
@@ -163,11 +165,31 @@ export async function getGalleryEntries(locale: Locale): Promise<GalleryEntry[]>
       .filter(Boolean)
       .map((tag) => tag!.slug)
 
+    // La vidéo passe devant : c'est l'aperçu le plus parlant d'un outil.
+    const poster = asMedia(tool.videoPoster) ?? asMedia(tool.mainImage)
+    if (tool.videoUrl && poster?.url) {
+      entries.push({
+        id: -poster.id,
+        kind: 'video',
+        videoUrl: tool.videoUrl,
+        url: poster.url,
+        alt: poster.alt ?? '',
+        width: poster.width ?? null,
+        height: poster.height ?? null,
+        toolName: tool.name,
+        toolSlug: tool.slug,
+        categorySlug: category?.slug ?? null,
+        categoryName: category?.name ?? null,
+        tagSlugs,
+      })
+    }
+
     for (const value of [tool.mainImage, ...(tool.gallery ?? [])]) {
       const media = asMedia(value)
       if (!media?.url) continue
 
       entries.push({
+        kind: 'image',
         id: media.id,
         url: media.url,
         alt: media.alt ?? '',
