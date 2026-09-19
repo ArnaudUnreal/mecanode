@@ -59,6 +59,23 @@ mecanode-backup
 systemctl list-timers mecanode-backup
 ```
 
+## Vérifier l'envoi de courriel
+
+```bash
+mecanode-smtp-test
+```
+
+Affiche le serveur et l'identité utilisés, puis soit `authentification : OK` suivi de l'envoi
+d'un message vers `CONTACT_TO`, soit la raison exacte du refus. Le mot de passe n'est jamais
+affiché. Après toute correction du `.env` :
+
+```bash
+sudo systemctl restart mecanode
+```
+
+Un refus `535 5.7.0 Invalid login or password` ne distingue pas un mauvais mot de passe d'un
+service mail encore en cours d'activation : Infomaniak répond la même chose dans les deux cas.
+
 ## Restaurer
 
 ```bash
@@ -80,9 +97,9 @@ sudo systemctl start mecanode
 
 ## Ce qui manque
 
-- **SMTP** : le formulaire de contact valide et accepte les messages, mais l'envoi
-  échoue tant que `SMTP_HOST`, `SMTP_USER`, `SMTP_PASSWORD` ne sont pas renseignés
-  dans `/srv/mecanode/app/.env`. Créer d'abord `contact@mecanode.com` chez Infomaniak.
+- **SMTP** : configuré avec la boîte `webmail@mecanode.com`, vers `contact@mecanode.com`.
+  En attente de l'activation du service mail du domaine chez Infomaniak, annoncée sous 24 h.
+  Vérifier avec `mecanode-smtp-test`.
 - **IPv6** : adresse et passerelle à configurer sur l'interface, puis enregistrements `AAAA`.
 - **Intégration continue** : le déploiement est manuel, deux commandes. Une action
   GitHub peut le déclencher à chaque poussée sur `main`.
