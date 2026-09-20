@@ -63,7 +63,19 @@ mecanode-backup
 systemctl list-timers mecanode-backup
 ```
 
-## Vérifier l'envoi de courriel
+## Courriel sortant
+
+Réglages en vigueur dans `/srv/mecanode/app/.env` :
+
+| Variable | Valeur |
+| --- | --- |
+| `SMTP_HOST` | `mail.infomaniak.com` |
+| `SMTP_PORT` | `465` ; ce port suffit à basculer en TLS implicite, voir `src/payload.config.ts` |
+| `SMTP_USER` et `SMTP_FROM` | `webmail@mecanode.com` |
+| `SMTP_PASSWORD` | mot de passe de l'appareil `site-mecanode`, voir plus bas |
+| `CONTACT_TO` | `contact@mecanode.com` |
+
+Vérifier l'envoi :
 
 ```bash
 mecanode-smtp-test
@@ -77,8 +89,21 @@ affiché. Après toute correction du `.env` :
 sudo systemctl restart mecanode
 ```
 
-Un refus `535 5.7.0 Invalid login or password` ne distingue pas un mauvais mot de passe d'un
-service mail encore en cours d'activation : Infomaniak répond la même chose dans les deux cas.
+Un refus `535 5.7.0 Invalid login or password` vient du mot de passe, jamais du port ni de
+l'hôte. Chez Infomaniak, chaque client qui se connecte en IMAP ou en SMTP est un « appareil »
+doté de son propre mot de passe : celui du compte Infomaniak et celui du webmail sont refusés.
+
+Créer ou renouveler le mot de passe d'envoi du site :
+
+- Ouvrir le manager Infomaniak, **Hébergement Mail** de `mecanode.com`, boîte `webmail@mecanode.com`.
+- Choisir **Ajouter un appareil**, puis **Configurer moi-même**, nom `site-mecanode`.
+- Copier le mot de passe affiché, visible une seule fois, dans `SMTP_PASSWORD`.
+- Redémarrer le service : les variables sont lues au démarrage du processus, pas à chaque envoi.
+
+Un appareil par usage : révoquer celui du site ne coupe pas Thunderbird.
+
+Recevoir un message ne prouve rien sur l'envoi. L'entrant dépend du `MX` du domaine et ne
+demande aucun mot de passe ; seul `mecanode-smtp-test` éprouve le sortant.
 
 ## Reprendre la main sur le back-office
 
@@ -121,9 +146,6 @@ sudo systemctl start mecanode
 
 ## Ce qui manque
 
-- **SMTP** : configuré avec la boîte `webmail@mecanode.com`, vers `contact@mecanode.com`.
-  En attente de l'activation du service mail du domaine chez Infomaniak, annoncée sous 24 h.
-  Vérifier avec `mecanode-smtp-test`.
 - **IPv6** : adresse et passerelle à configurer sur l'interface, puis enregistrements `AAAA`.
 - **Intégration continue** : le déploiement est manuel, deux commandes. Une action
   GitHub peut le déclencher à chaque poussée sur `main`.
