@@ -62,7 +62,7 @@ const toolSeeds = [
     category: 'physics',
     tags: ['editor', 'code-plugin', 'automation'],
     fabUrl: 'https://www.fab.com/listings/85075872-2ac1-474f-89d3-cce82837ec83',
-    videoUrl: 'https://www.youtube.com/watch?v=PeEs4Sn60aI',
+    videoUrl: 'https://youtu.be/l2fxp2Ulp7U',
     releaseDate: '2026-05-27',
     featured: true,
     tagline: {
@@ -363,7 +363,9 @@ async function seed() {
       data: {
         tagline: tool.tagline.fr,
         description: richText(tool.description.fr),
-        releaseNotes: tool.releaseNotes.map((note) => ({
+        // Lignes partagées entre langues : reprendre leurs identifiants, voir site-settings.
+        releaseNotes: tool.releaseNotes.map((note, i) => ({
+          id: created.releaseNotes?.[i]?.id,
           version: note.version,
           date: note.date,
           changes: note.changes.fr,
@@ -494,8 +496,7 @@ async function seed() {
       elsewhere: [
         { label: 'Fab', url: FAB_STORE },
         { label: 'LinkedIn', url: 'https://www.linkedin.com/in/arnaud-szobad' },
-        // Décocher « Bientôt » dans les réglages dès que la chaîne est publique.
-        { label: 'YouTube', url: '', soon: true },
+        { label: 'YouTube', url: 'https://www.youtube.com/channel/UCGmHtN2KGStNThOsoqpGg-Q' },
       ],
     },
   })
