@@ -381,7 +381,7 @@ async function seed() {
     data: {
       title: 'Arnaud Szobad',
       slug: 'about',
-      role: 'Unreal Engine developer',
+      role: 'Real-time solutions developer',
       lede: 'I build Unreal Engine systems that run live in front of an audience: TV broadcast, e-sport, live events.',
       content: richText([
         'Eight years in television post-production, eight years in fullstack development, real time since 2016. I read a data stream the way an editor reads rushes, and I structure a project the way a developer does.',
@@ -391,7 +391,7 @@ async function seed() {
       timeline: [
         {
           period: '2018 →',
-          title: 'Unreal Engine developer, freelance',
+          title: 'Real-time solutions developer, freelance',
           text: 'Procedural generation, augmented reality and broadcast real time: Ai-Verse, the Ultra-Trail du Mont-Blanc with LTV Prod, Riot Games and Amazon with Tessellation, Luxigon.',
         },
         {
@@ -424,7 +424,7 @@ async function seed() {
     locale: 'fr',
     data: {
       title: 'Arnaud Szobad',
-      role: 'Développeur Unreal Engine',
+      role: 'Développeur de solutions temps réel',
       lede: 'Je conçois des systèmes Unreal Engine qui tournent en direct devant du public : diffusion TV, e-sport, événementiel.',
       content: richText([
         "Huit ans de post-production télé, huit ans de développement fullstack, le temps réel depuis 2016. Je lis un flux de données comme un monteur lit un rush, et je structure un projet comme un développeur.",
@@ -434,7 +434,7 @@ async function seed() {
       timeline: [
         {
           period: '2018 →',
-          title: 'Développeur Unreal Engine, freelance',
+          title: 'Développeur de solutions temps réel, freelance',
           text: "Génération procédurale, réalité augmentée et temps réel de diffusion : Ai-Verse, l'Ultra-Trail du Mont-Blanc avec LTV Prod, Riot Games et Amazon avec Tessellation, Luxigon.",
         },
         {

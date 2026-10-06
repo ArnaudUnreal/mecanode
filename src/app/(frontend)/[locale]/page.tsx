@@ -70,7 +70,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         '@id': `${SITE_URL}/#person`,
         name: 'Arnaud Szobad',
         url: `${SITE_URL}/${locale}`,
-        jobTitle: locale === 'fr' ? 'Développeur Unreal Engine' : 'Unreal Engine developer',
+        jobTitle: locale === 'fr' ? 'Développeur de solutions temps réel' : 'Real-time solutions developer',
         sameAs: (settings.elsewhere ?? []).map((item) => item.url),
       },
     ],
