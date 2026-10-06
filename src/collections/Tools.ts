@@ -4,6 +4,7 @@ import { isAdmin } from '@/collections/Users'
 
 import { languagesColumn } from '@/fields/languages'
 import { slugField } from '@/fields/slug'
+import { revalidateAfterChange, revalidateAfterDelete } from '@/lib/revalidate'
 
 const engineVersionOptions = [
   '4.25',
@@ -48,6 +49,10 @@ export const Tools: CollectionConfig = {
     drafts: {
       autosave: false,
     },
+  },
+  hooks: {
+    afterChange: [revalidateAfterChange],
+    afterDelete: [revalidateAfterDelete],
   },
   fields: [
     {

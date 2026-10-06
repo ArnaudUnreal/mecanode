@@ -381,10 +381,8 @@ async function seed() {
     data: {
       title: 'Arnaud Szobad',
       slug: 'about',
-      role: 'Unreal Engine developer · Unreal 5.x Authorized Instructor',
+      role: 'Unreal Engine developer',
       lede: 'I build Unreal Engine systems that run live in front of an audience: TV broadcast, e-sport, live events.',
-      badgeTitle: 'Unreal Engine 5 Authorized Instructor',
-      badgeText: 'Certified by Epic Games, 2023',
       content: richText([
         'Eight years in television post-production, eight years in fullstack development, real time since 2016. I read a data stream the way an editor reads rushes, and I structure a project the way a developer does.',
         "My systems have gone live on Eurosport, La chaîne L'Équipe, Amazon Prime Video, Twitch and the UTMB YouTube channel, up to the giant screen on the main square in Chamonix.",
@@ -426,10 +424,8 @@ async function seed() {
     locale: 'fr',
     data: {
       title: 'Arnaud Szobad',
-      role: 'Développeur Unreal Engine · Unreal 5.x Authorized Instructor',
+      role: 'Développeur Unreal Engine',
       lede: 'Je conçois des systèmes Unreal Engine qui tournent en direct devant du public : diffusion TV, e-sport, événementiel.',
-      badgeTitle: 'Unreal Engine 5 Authorized Instructor',
-      badgeText: 'Certifié par Epic Games, 2023',
       content: richText([
         "Huit ans de post-production télé, huit ans de développement fullstack, le temps réel depuis 2016. Je lis un flux de données comme un monteur lit un rush, et je structure un projet comme un développeur.",
         "Mes systèmes sont passés en direct sur Eurosport, La chaîne L'Équipe, Amazon Prime Video, Twitch et le YouTube de l'UTMB, jusqu'à l'écran géant de la place de Chamonix.",

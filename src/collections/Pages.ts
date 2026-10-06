@@ -4,6 +4,7 @@ import { isAdmin } from '@/collections/Users'
 
 import { languagesColumn } from '@/fields/languages'
 import { slugField } from '@/fields/slug'
+import { revalidateAfterChange, revalidateAfterDelete } from '@/lib/revalidate'
 
 /** Pages éditoriales : profil, enseignement, mentions. Le contenu est localisé. */
 export const Pages: CollectionConfig = {
@@ -28,6 +29,10 @@ export const Pages: CollectionConfig = {
     drafts: {
       autosave: false,
     },
+  },
+  hooks: {
+    afterChange: [revalidateAfterChange],
+    afterDelete: [revalidateAfterDelete],
   },
   fields: [
     {
@@ -76,6 +81,7 @@ export const Pages: CollectionConfig = {
     {
       name: 'timeline',
       type: 'array',
+      localized: true,
       label: { en: 'Timeline', fr: 'Parcours' },
       labels: {
         singular: { en: 'Entry', fr: 'Étape' },
@@ -102,7 +108,6 @@ export const Pages: CollectionConfig = {
               name: 'title',
               type: 'text',
               required: true,
-              localized: true,
               label: { en: 'Title', fr: 'Titre' },
               admin: { width: '70%' },
             },
@@ -111,7 +116,6 @@ export const Pages: CollectionConfig = {
         {
           name: 'text',
           type: 'textarea',
-          localized: true,
           label: { en: 'Text', fr: 'Texte' },
         },
       ],

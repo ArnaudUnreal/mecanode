@@ -1,5 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
+import { revalidateAfterChange } from '@/lib/revalidate'
+
 /** Réglages du site : ce qui est vrai partout, en-tête, pied de page, liens sortants. */
 export const SiteSettings: GlobalConfig = {
   slug: 'site-settings',
@@ -10,6 +12,9 @@ export const SiteSettings: GlobalConfig = {
   access: {
     read: () => true,
     update: ({ req }) => Boolean(req.user),
+  },
+  hooks: {
+    afterChange: [revalidateAfterChange],
   },
   fields: [
     {
