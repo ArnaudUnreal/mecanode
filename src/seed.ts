@@ -463,7 +463,10 @@ async function seed() {
   })
   payload.logger.info('Page profil créée.')
 
-  await payload.updateGlobal({
+  // Les tableaux heroMeta et stats sont partagés entre langues, seuls leurs libellés sont
+  // traduits : la version française doit reprendre les identifiants des lignes anglaises,
+  // sinon Payload recrée les lignes et les libellés anglais disparaissent.
+  const settingsEn = await payload.updateGlobal({
     slug: 'site-settings',
     locale: 'en',
     data: {
@@ -505,7 +508,7 @@ async function seed() {
         { label: 'Blueprint et C++' },
         { label: 'Éditeur et runtime' },
         { label: 'Vendus sur Fab' },
-      ],
+      ].map((row, i) => ({ ...row, id: settingsEn.heroMeta?.[i]?.id })),
       ctaTitle: 'Tout est sur Fab.',
       ctaLede:
         'Un achat, des mises à jour à vie, et des réponses écrites par celui qui a écrit le code.',
@@ -516,7 +519,7 @@ async function seed() {
         { value: '2016', label: 'sur Unreal depuis', highlight: false },
         { value: '5', label: 'outils publiés sur Fab', highlight: false },
         { value: '7', label: 'écoles où je suis intervenu', highlight: false },
-      ],
+      ].map((row, i) => ({ ...row, id: settingsEn.stats?.[i]?.id })),
     },
   })
   payload.logger.info('Réglages du site écrits.')
