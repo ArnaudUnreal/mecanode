@@ -14,14 +14,16 @@
     "openGallery": "Ouvrir la galerie",
     "openStore": "Ouvrir la boutique Mecanode",
     "getItOnFab": "Acheter sur Fab",
-    "seeTool": "Voir l'outil"
+    "seeTool": "Voir l'outil",
+    "soon": "Bientôt"
   },
   "a11y": {
     "skipToContent": "Aller au contenu",
     "mainNav": "Navigation principale",
     "languageSwitch": "Langue",
     "menu": "Menu",
-    "externalLink": "Ouvrir {name} dans un nouvel onglet"
+    "externalLink": "Ouvrir {name} dans un nouvel onglet",
+    "comingSoon": "{name} — chaîne bientôt en ligne"
   },
   "home": {
     "eyebrow": "Unreal Engine {range}",

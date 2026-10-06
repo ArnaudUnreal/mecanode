@@ -646,7 +646,11 @@ export interface SiteSetting {
   elsewhere?:
     | {
         label: string;
-        url: string;
+        url?: string | null;
+        /**
+         * Shows the icon behind a SOON band, with no link, until the account is live.
+         */
+        soon?: boolean | null;
         id?: string | null;
       }[]
     | null;
@@ -686,6 +690,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
     | {
         label?: T;
         url?: T;
+        soon?: T;
         id?: T;
       };
   updatedAt?: T;

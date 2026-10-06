@@ -9,6 +9,7 @@ export async function Footer() {
   const locale = (await getLocale()) as Locale
   const nav = await getTranslations('nav')
   const footer = await getTranslations('footer')
+  const actions = await getTranslations('actions')
 
   const [settings, tools] = await Promise.all([getSiteSettings(locale), getTools(locale)])
 
@@ -64,17 +65,29 @@ export async function Footer() {
             <h2 className="mb-4 font-mono text-[11px] font-medium tracking-[0.12em] uppercase text-ink-3">
               {footer('elsewhere')}
             </h2>
-            {(settings.elsewhere ?? []).map((item) => (
-              <a
-                key={item.id ?? item.url}
-                className={linkClass}
-                href={item.url}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {item.label}
-              </a>
-            ))}
+            {(settings.elsewhere ?? []).map((item) =>
+              item.soon ? (
+                <span
+                  key={item.id ?? item.label}
+                  className="flex items-center gap-2 py-[5px] text-sm text-ink-3"
+                >
+                  {item.label}
+                  <span className="font-mono text-[10px] font-medium tracking-[0.12em] text-cyan uppercase">
+                    {actions('soon')}
+                  </span>
+                </span>
+              ) : (
+                <a
+                  key={item.id ?? item.url}
+                  className={linkClass}
+                  href={item.url ?? '#'}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {item.label}
+                </a>
+              ),
+            )}
           </div>
         </div>
 

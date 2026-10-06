@@ -1,6 +1,6 @@
 import React from 'react'
 
-export type SocialItem = { label: string; url: string; aria: string }
+export type SocialItem = { label: string; url: string; aria: string; soon?: boolean }
 
 /**
  * Marque Fab, reprise du logo officiel servi par fab.com.
@@ -25,20 +25,37 @@ function LinkedInIcon() {
   )
 }
 
+/** Marque YouTube, reprise du logo officiel. */
+function YouTubeIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+    </svg>
+  )
+}
+
 const icons: Record<string, React.ReactNode> = {
   fab: <FabIcon />,
   linkedin: <LinkedInIcon />,
+  youtube: <YouTubeIcon />,
 }
+
+const tileClass =
+  'clip-node relative flex h-9 w-9 items-center justify-center overflow-hidden border border-line-strong bg-panel text-ink-2'
 
 /**
  * Raccourcis vers les profils extérieurs, dans l'en-tête. Les mêmes liens restent
- * listés en toutes lettres dans le pied de page.
+ * listés en toutes lettres dans le pied de page. Un profil coché « Bientôt » dans
+ * les réglages garde le même gabarit, barré d'un bandeau, et ne pointe vers rien
+ * tant que la case reste cochée.
  */
 export function SocialLinks({
   items,
+  soonLabel,
   className = '',
 }: {
   items: SocialItem[]
+  soonLabel: string
   className?: string
 }) {
   const known = items.filter((item) => icons[item.label.toLowerCase()])
@@ -46,19 +63,35 @@ export function SocialLinks({
 
   return (
     <div className={`flex items-center gap-1.5 ${className}`}>
-      {known.map((item) => (
-        <a
-          aria-label={item.aria}
-          className="clip-node flex h-9 w-9 items-center justify-center border border-line-strong bg-panel text-ink-2 transition-colors hover:border-cyan hover:text-cyan"
-          href={item.url}
-          key={item.label}
-          rel="noopener noreferrer"
-          target="_blank"
-          title={item.label}
-        >
-          {icons[item.label.toLowerCase()]}
-        </a>
-      ))}
+      {known.map((item) =>
+        item.soon ? (
+          <span className={tileClass} key={item.label} title={`${item.label} · ${soonLabel}`}>
+            {/* Le glyphe remonte de 4 px pour passer au-dessus du bandeau sans être coupé. */}
+            <span aria-hidden="true" className="flex -translate-y-1 opacity-[.55]">
+              {icons[item.label.toLowerCase()]}
+            </span>
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 bottom-0 flex h-[10px] items-center justify-center bg-cyan font-mono text-[6.5px] leading-none font-bold tracking-[0.02em] text-bg uppercase"
+            >
+              {soonLabel}
+            </span>
+            <span className="sr-only">{item.aria}</span>
+          </span>
+        ) : (
+          <a
+            aria-label={item.aria}
+            className={`${tileClass} transition-colors hover:border-cyan hover:text-cyan`}
+            href={item.url}
+            key={item.label}
+            rel="noopener noreferrer"
+            target="_blank"
+            title={item.label}
+          >
+            {icons[item.label.toLowerCase()]}
+          </a>
+        ),
+      )}
     </div>
   )
 }

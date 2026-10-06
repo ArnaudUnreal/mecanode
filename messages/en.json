@@ -14,14 +14,16 @@
     "openGallery": "Open the gallery",
     "openStore": "Open the Mecanode store",
     "getItOnFab": "Get it on Fab",
-    "seeTool": "See the tool"
+    "seeTool": "See the tool",
+    "soon": "Soon"
   },
   "a11y": {
     "skipToContent": "Skip to content",
     "mainNav": "Main navigation",
     "languageSwitch": "Language",
     "menu": "Menu",
-    "externalLink": "Open {name} in a new tab"
+    "externalLink": "Open {name} in a new tab",
+    "comingSoon": "{name} — channel coming soon"
   },
   "home": {
     "eyebrow": "Unreal Engine {range}",

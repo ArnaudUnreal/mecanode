@@ -145,11 +145,27 @@ export const SiteSettings: GlobalConfig = {
             {
               name: 'url',
               type: 'text',
-              required: true,
               label: { en: 'URL', fr: 'URL' },
               admin: { width: '60%' },
+              // Facultative uniquement tant que la case « Bientôt » est cochée.
+              validate: (value: string | null | undefined, { siblingData }: { siblingData: { soon?: boolean } }) =>
+                siblingData?.soon || (value ?? '').length > 0
+                  ? true
+                  : 'URL requise tant que « Bientôt » n’est pas coché.',
             },
           ],
+        },
+        {
+          name: 'soon',
+          type: 'checkbox',
+          defaultValue: false,
+          label: { en: 'Coming soon', fr: 'Bientôt' },
+          admin: {
+            description: {
+              en: 'Shows the icon behind a SOON band, with no link, until the account is live.',
+              fr: 'Affiche l’icône barrée d’un bandeau BIENTÔT, sans lien, tant que le compte n’est pas en ligne.',
+            },
+          },
         },
       ],
     },

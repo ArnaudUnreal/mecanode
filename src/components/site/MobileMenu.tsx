@@ -16,11 +16,13 @@ export function MobileMenu({
   menuLabel,
   languageLabel,
   social,
+  soonLabel,
 }: {
   items: Item[]
   menuLabel: string
   languageLabel: string
   social: SocialItem[]
+  soonLabel: string
 }) {
   const [open, setOpen] = React.useState(false)
 
@@ -73,7 +75,7 @@ export function MobileMenu({
           </nav>
           <div className="flex items-center justify-between gap-4 pt-4">
             <LocaleSwitch label={languageLabel} />
-            <SocialLinks items={social} />
+            <SocialLinks items={social} soonLabel={soonLabel} />
           </div>
         </div>
       ) : null}

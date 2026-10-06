@@ -494,6 +494,8 @@ async function seed() {
       elsewhere: [
         { label: 'Fab', url: FAB_STORE },
         { label: 'LinkedIn', url: 'https://www.linkedin.com/in/arnaud-szobad' },
+        // Décocher « Bientôt » dans les réglages dès que la chaîne est publique.
+        { label: 'YouTube', url: '', soon: true },
       ],
     },
   })

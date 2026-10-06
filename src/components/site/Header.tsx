@@ -25,8 +25,11 @@ export async function Header() {
   // Les liens extérieurs viennent des réglages du site, pas du code.
   const social = (settings.elsewhere ?? []).map((item) => ({
     label: item.label,
-    url: item.url,
-    aria: a11y('externalLink', { name: item.label }),
+    url: item.url ?? '',
+    soon: Boolean(item.soon),
+    aria: item.soon
+      ? a11y('comingSoon', { name: item.label })
+      : a11y('externalLink', { name: item.label }),
   }))
 
   return (
@@ -54,7 +57,7 @@ export async function Header() {
 
         <div className="flex-1" />
 
-        <SocialLinks className="hidden sm:flex" items={social} />
+        <SocialLinks className="hidden sm:flex" items={social} soonLabel={actions('soon')} />
 
         <div className="hidden sm:block">
           <LocaleSwitch label={a11y('languageSwitch')} />
@@ -65,6 +68,7 @@ export async function Header() {
           menuLabel={a11y('menu')}
           languageLabel={a11y('languageSwitch')}
           social={social}
+          soonLabel={actions('soon')}
         />
 
         <ButtonLink href={settings.fabUrl} rel="noopener noreferrer" target="_blank" variant="fab">
