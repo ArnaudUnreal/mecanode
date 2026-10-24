@@ -18,6 +18,7 @@ const engineVersionOptions = [
   '5.5',
   '5.6',
   '5.7',
+  '5.8',
 ].map(
   (version) => ({ label: version, value: version }),
 )

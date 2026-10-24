@@ -1,16 +1,22 @@
 /**
  * Jeu de données réel, exécuté par `pnpm seed`.
- * Source : les cinq fiches Fab listées dans `04-Assets/FabListing.md`.
+ * Source : les six fiches Fab listées dans `04-Assets/FabListing.md`.
  * Les textes anglais viennent des fiches Fab, les textes français sont leur traduction.
  * Les visuels sont ceux des fiches, téléchargés dans `04-Assets/fab/<slug>/`.
  * Le script est idempotent : il vide les collections de contenu avant d'écrire.
+ *
+ * `SEED_ONLY=<slug>` n'ajoute que cet outil, sans rien vider : c'est le mode à utiliser sur
+ * une base de production, dont le contenu a pu être retouché dans le back-office.
+ * Catégorie et étiquettes manquantes sont créées, un outil déjà présent est laissé tel quel.
+ * `SEED_ASSETS` remplace le dossier des visuels, sur un serveur qui n'a pas `D:/`.
  */
 import config from '@payload-config'
 import fs from 'fs'
 import path from 'path'
 import { getPayload } from 'payload'
 
-const ASSETS = 'D:/Mecanode/04-Assets/fab'
+const ASSETS = process.env.SEED_ASSETS || 'D:/Mecanode/04-Assets/fab'
+const ONLY = process.env.SEED_ONLY
 
 type EngineVersion =
   | '4.25'
@@ -24,9 +30,11 @@ type EngineVersion =
   | '5.5'
   | '5.6'
   | '5.7'
+  | '5.8'
 
 /** Versions d'Unreal compatibles, reprises de `04-Assets/FabListing.md`. */
 const ENGINE_VERSIONS: Record<string, EngineVersion[]> = {
+  minimap: ['5.6', '5.7', '5.8'],
   'chaos-batch-fracture': ['5.6', '5.7'],
   'dice-system': ['5.2', '5.3', '5.4', '5.5', '5.6'],
   'histogram-chart': ['4.25', '4.26', '4.27', '5.3', '5.4', '5.5', '5.6'],
@@ -55,6 +63,42 @@ const richText = (paragraphs: string[]) => ({
 })
 
 const toolSeeds = [
+  {
+    name: 'MiniMap',
+    slug: 'minimap',
+    assetDir: 'minimap',
+    category: 'editor-tools',
+    tags: ['editor', 'code-plugin'],
+    fabUrl: 'https://www.fab.com/listings/029a652c-4ad3-415b-a9af-162e94f11ac3',
+    videoUrl: 'https://www.youtube.com/watch?v=Gdijh80Qzok',
+    releaseDate: '2026-10-23',
+    featured: true,
+    tagline: {
+      en: 'A top-down map of your level, right in the editor: see every Actor, click, and you are there.',
+      fr: "Une carte de ton level vue de dessus, dans l'éditeur : tu vois chaque Actor, tu cliques, tu y es.",
+    },
+    description: {
+      en: [
+        'MiniMap adds a dockable tab to the Unreal Editor with a top-down map of the current level. No more flying around the viewport for minutes looking for that spawn point, that light or that trigger lost behind a hill.',
+        'Click an Actor to select it, Ctrl + click to add or remove it, double-click to focus the editor camera on it. Click empty space and the camera jumps right above that point, keeping its orientation and its height above the ground. The editor camera is drawn with its field of view, so you always know where you are and what you are looking at.',
+        'The map fits the level bounds, never stretches, and updates itself when Actors are added, moved, renamed or deleted. A filter on class name or label keeps only the Actors you are after, and a 2048 × 2048 aerial capture of the level can serve as background.',
+        'Editor only: nothing ends up in the packaged game. No assets, no setup, full C++ source included, World Partition supported for the cells loaded in the editor.',
+      ],
+      fr: [
+        "MiniMap ajoute à l'éditeur Unreal un onglet, à placer où tu veux, avec une carte vue de dessus du level ouvert. Fini les minutes passées à voler dans le viewport à la recherche de ce point de spawn, de cette lumière ou de ce trigger perdu derrière une colline.",
+        "Un clic sur un Actor le sélectionne, Ctrl + clic l'ajoute ou le retire, un double-clic y amène la caméra de l'éditeur. Un clic dans le vide téléporte la caméra juste au-dessus du point, en gardant son orientation et sa hauteur au-dessus du sol. La caméra est dessinée avec son champ de vision : tu sais toujours où tu es et ce que tu regardes.",
+        "La carte s'ajuste aux dimensions du level, ne se déforme jamais et se met à jour seule quand un Actor est ajouté, déplacé, renommé ou supprimé. Un filtre sur le nom de classe ou le label ne garde que les Actors que tu cherches, et une capture aérienne du level en 2048 × 2048 peut servir de fond de carte.",
+        "Réservé à l'éditeur : rien n'arrive dans le jeu packagé. Aucun asset, aucune configuration, le code source C++ complet est inclus, et World Partition est pris en charge pour les cellules chargées dans l'éditeur.",
+      ],
+    },
+    releaseNotes: [
+      {
+        version: '1.1',
+        date: '2026-10-23',
+        changes: { en: 'Initial release on Fab.', fr: 'Première version sur Fab.' },
+      },
+    ],
+  },
   {
     name: 'ChaosBatchFracture',
     slug: 'chaos-batch-fracture',
@@ -218,6 +262,7 @@ const toolSeeds = [
 ]
 
 const categorySeeds = [
+  { slug: 'editor-tools', en: 'Editor tools', fr: "Outils d'éditeur" },
   { slug: 'physics', en: 'Physics', fr: 'Physique' },
   { slug: 'gameplay-features', en: 'Gameplay features', fr: 'Fonctionnalités de jeu' },
 ]
@@ -236,45 +281,67 @@ const FAB_STORE = 'https://www.fab.com/sellers/Mecanode'
 async function seed() {
   const payload = await getPayload({ config })
 
-  for (const collection of ['tools', 'pages', 'tags', 'media'] as const) {
-    await payload.delete({ collection, where: { id: { exists: true } } })
+  const selected = ONLY ? toolSeeds.filter((tool) => tool.slug === ONLY) : toolSeeds
+  if (ONLY && selected.length === 0) {
+    payload.logger.error(`Aucun outil « ${ONLY} » dans le jeu de données.`)
+    process.exit(1)
   }
-  payload.logger.info('Collections de contenu vidées.')
 
-  const categories: Record<string, number> = {}
-  for (const category of categorySeeds) {
+  if (!ONLY) {
+    for (const collection of ['tools', 'pages', 'tags', 'media'] as const) {
+      await payload.delete({ collection, where: { id: { exists: true } } })
+    }
+    payload.logger.info('Collections de contenu vidées.')
+  }
+
+  // Reprend l'étiquette existante de même identifiant, sinon la crée dans les deux langues.
+  const ensureTag = async (kind: 'category' | 'tag', seed: (typeof tagSeeds)[number]) => {
+    const existing = await payload.find({
+      collection: 'tags',
+      where: { slug: { equals: seed.slug }, kind: { equals: kind } },
+      limit: 1,
+    })
+    if (existing.docs[0]) return existing.docs[0].id
+
     const created = await payload.create({
       collection: 'tags',
       locale: 'en',
-      data: { name: category.en, kind: 'category', slug: category.slug },
+      data: { name: seed.en, kind, slug: seed.slug },
     })
     await payload.update({
       collection: 'tags',
       id: created.id,
       locale: 'fr',
-      data: { name: category.fr },
+      data: { name: seed.fr },
     })
-    categories[category.slug] = created.id
+    return created.id
+  }
+
+  const categories: Record<string, number> = {}
+  for (const category of categorySeeds) {
+    categories[category.slug] = await ensureTag('category', category)
   }
 
   const tags: Record<string, number> = {}
   for (const tag of tagSeeds) {
-    const created = await payload.create({
-      collection: 'tags',
-      locale: 'en',
-      data: { name: tag.en, kind: 'tag', slug: tag.slug },
-    })
-    await payload.update({
-      collection: 'tags',
-      id: created.id,
-      locale: 'fr',
-      data: { name: tag.fr },
-    })
-    tags[tag.slug] = created.id
+    tags[tag.slug] = await ensureTag('tag', tag)
   }
-  payload.logger.info('Étiquettes créées.')
+  payload.logger.info('Étiquettes prêtes.')
 
-  for (const tool of toolSeeds) {
+  for (const tool of selected) {
+    if (ONLY) {
+      const existing = await payload.find({
+        collection: 'tools',
+        where: { slug: { equals: tool.slug } },
+        draft: true,
+        limit: 1,
+      })
+      if (existing.docs[0]) {
+        payload.logger.warn(`${tool.name} existe déjà, rien n'est modifié.`)
+        continue
+      }
+    }
+
     const dir = path.join(ASSETS, tool.assetDir)
     const tous = fs.existsSync(dir)
       ? fs
@@ -375,6 +442,11 @@ async function seed() {
     })
 
     payload.logger.info(`${tool.name} : ${files.length} visuels importés.`)
+  }
+
+  if (ONLY) {
+    payload.logger.info('Ajout terminé. Chiffres clés et plage de versions restent à régler dans le back-office.')
+    process.exit(0)
   }
 
   const about = await payload.create({
@@ -486,11 +558,11 @@ async function seed() {
       lede: 'Editor plugins and Blueprint systems built over ten years of production and teaching. Drop them in, ship faster, keep your graph readable.',
       footerNote: 'Unreal Engine tools, built in production and tested in classrooms.',
       fabUrl: FAB_STORE,
-      engineRange: '4.25 → 5.7',
+      engineRange: '4.25 → 5.8',
       stats: [
         { value: '16', label: 'years in the trade', highlight: true },
         { value: '2016', label: 'on Unreal since', highlight: false },
-        { value: '5', label: 'tools published on Fab', highlight: false },
+        { value: '6', label: 'tools published on Fab', highlight: false },
         { value: '7', label: 'schools taught in', highlight: false },
       ],
       elsewhere: [
@@ -520,7 +592,7 @@ async function seed() {
       stats: [
         { value: '16', label: 'ans de métier', highlight: true },
         { value: '2016', label: 'sur Unreal depuis', highlight: false },
-        { value: '5', label: 'outils publiés sur Fab', highlight: false },
+        { value: '6', label: 'outils publiés sur Fab', highlight: false },
         { value: '7', label: 'écoles où je suis intervenu', highlight: false },
       ].map((row, i) => ({ ...row, id: settingsEn.stats?.[i]?.id })),
     },

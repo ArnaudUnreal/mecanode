@@ -91,7 +91,7 @@ export const SiteSettings: GlobalConfig = {
       name: 'engineRange',
       type: 'text',
       label: { en: 'Supported Unreal range', fr: "Plage d'Unreal supportée" },
-      admin: { description: { en: 'Shown in the hero, e.g. 5.3 → 5.7', fr: 'Affichée dans le héros, par exemple 5.3 → 5.7' } },
+      admin: { description: { en: 'Shown in the hero, e.g. 5.3 → 5.8', fr: 'Affichée dans le héros, par exemple 5.3 → 5.8' } },
     },
     {
       name: 'stats',

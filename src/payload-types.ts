@@ -163,7 +163,7 @@ export interface Tool {
    * YouTube or Vimeo. The player loads on click, never on page load.
    */
   videoUrl?: string | null;
-  engineVersions: ('4.25' | '4.26' | '4.27' | '5.0' | '5.1' | '5.2' | '5.3' | '5.4' | '5.5' | '5.6' | '5.7')[];
+  engineVersions: ('4.25' | '4.26' | '4.27' | '5.0' | '5.1' | '5.2' | '5.3' | '5.4' | '5.5' | '5.6' | '5.7' | '5.8')[];
   category: number | Tag;
   tags?: (number | Tag)[] | null;
   /**
@@ -632,7 +632,7 @@ export interface SiteSetting {
   footerNote?: string | null;
   fabUrl: string;
   /**
-   * Shown in the hero, e.g. 5.3 → 5.7
+   * Shown in the hero, e.g. 5.3 → 5.8
    */
   engineRange?: string | null;
   stats?:
