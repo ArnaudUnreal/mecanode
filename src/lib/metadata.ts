@@ -58,3 +58,7 @@ export function pageMetadata({
     },
   }
 }
+
+/** Page de vérification de la certification Unreal Authorized Instructor chez Epic Games. */
+export const UAI_CREDENTIAL_URL =
+  'https://credential.unrealengine.com/d1214beb-00e2-40f6-b5a1-a5da6cad6375#acc.DdURVhGY'

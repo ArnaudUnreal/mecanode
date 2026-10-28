@@ -7,7 +7,7 @@ import React from 'react'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { Logo } from '@/components/ui/Logo'
 import { asMedia, getPage, getSiteSettings, type Locale } from '@/lib/content'
-import { SITE_URL } from '@/lib/metadata'
+import { SITE_URL, UAI_CREDENTIAL_URL } from '@/lib/metadata'
 import type { Metadata } from 'next'
 import { pageMetadata } from '@/lib/metadata'
 
@@ -52,6 +52,12 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
     url: `${SITE_URL}/${locale}`,
     sameAs: (settings.elsewhere ?? []).map((item) => item.url),
     knowsAbout: ['Unreal Engine', 'Blueprint', 'C++', 'Virtual production', 'Real-time 3D'],
+    hasCredential: {
+      '@type': 'EducationalOccupationalCredential',
+      name: 'Unreal Authorized Instructor',
+      url: UAI_CREDENTIAL_URL,
+      recognizedBy: { '@type': 'Organization', name: 'Epic Games' },
+    },
   }
 
   return (
@@ -77,6 +83,18 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         </div>
 
         <div>
+          <a
+            className="mb-3 inline-flex items-center gap-2 rounded-full border border-[rgba(43,229,255,0.22)] bg-[rgba(43,229,255,0.05)] px-3 py-1.5 font-mono text-xs tracking-[0.08em] uppercase text-ink transition-colors hover:border-cyan hover:text-cyan"
+            href={UAI_CREDENTIAL_URL}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <svg width="14" height="14" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+              <path d="M11 2 L19 6.5 V15.5 L11 20 L3 15.5 V6.5 Z" stroke="var(--cyan)" strokeWidth="1.6" />
+              <path d="M7.5 11 L10 13.5 L14.5 8.5" stroke="var(--cyan)" strokeWidth="1.8" />
+            </svg>
+            {t('credential')}
+          </a>
           {page.role ? (
             <span className="mb-5 block font-mono text-xs tracking-[0.08em] uppercase text-cyan">
               {page.role}

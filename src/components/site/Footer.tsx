@@ -4,12 +4,14 @@ import React from 'react'
 import { Logo } from '@/components/ui/Logo'
 import { Link } from '@/i18n/navigation'
 import { getSiteSettings, getTools, type Locale } from '@/lib/content'
+import { UAI_CREDENTIAL_URL } from '@/lib/metadata'
 
 export async function Footer() {
   const locale = (await getLocale()) as Locale
   const nav = await getTranslations('nav')
   const footer = await getTranslations('footer')
   const actions = await getTranslations('actions')
+  const about = await getTranslations('about')
 
   const [settings, tools] = await Promise.all([getSiteSettings(locale), getTools(locale)])
 
@@ -94,6 +96,15 @@ export async function Footer() {
         <div className="flex flex-wrap items-center justify-between gap-5 border-t border-line-soft pt-[22px] text-[13px] text-ink-3">
           <span className="text-ink-2">
             {footer('builtBy')} <b className="font-semibold text-ink">Arnaud Szobad</b>
+            {' · '}
+            <a
+              className="transition-colors hover:text-cyan"
+              href={UAI_CREDENTIAL_URL}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {about('credential')}
+            </a>
           </span>
           <span>© {new Date().getFullYear()} Mecanode</span>
         </div>
